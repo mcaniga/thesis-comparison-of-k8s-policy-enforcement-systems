@@ -1,0 +1,12 @@
+# Definition of pod illustrating best practices
+# Must pass the policy checks
+# TODO: gradually edit this definition to match best practice and pass policy checks
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secure-pod
+spec:
+  containers:
+    - name: secure
+      image: ubuntu
+      command: [ "sh", "-c", "sleep 1h" ]
