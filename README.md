@@ -2,6 +2,7 @@
 
 - implementation part of master thesis
 - tool for checking of cluster security through deployment of vulnerable pods
+- NOTE: **pod convention** - pod filename must match its `metadata.name` to correctly indentify if pod was applied to cluster
 
 ## Workflow
 - to run the cluster security test, user should execute the `apply.sh` script
