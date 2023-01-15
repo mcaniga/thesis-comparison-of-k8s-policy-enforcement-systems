@@ -13,10 +13,12 @@ WRONGLY_ACCEPTED=()
 WRONGLY_REJECTED=()
 
 # Parse -n <namespace> argument
-while getopts n: flag
+DELETE_NAMESPACE='false'
+while getopts nd: flag
 do
     case "${flag}" in
         n) NAMESPACE=${OPTARG};;
+        d) DELETE_NAMESPACE='true';;
     esac
 done
 
@@ -78,3 +80,7 @@ for filename in *; do
       WRONGLY_REJECTED+=($POD_NAME)
     fi
 done
+
+if [ "$DELETE_NAMESPACE" = true ] ; then
+    kubectl delete namespace --wait=false $NAMESPACE
+fi

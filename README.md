@@ -17,5 +17,8 @@
       - determines in which namespace the test will be executed
       - if argument is missing, test will run in generated namespace 
       - if provided namespace does not exist, it will be created
+    - `-d`
+      - optional flag
+      - **WARNING** - **d**eletes the namespace after test, usefull for new namespaces, may be malicious for existing namespaces
 - pods defined in `/pods/secure` are considered secure and must pass the policy checks - to ensure that policy is not simply rejecting all pods
 - pods defined in `/pods/vulnerable` are considered insecure and should not pass the policy checks (may with mutating controller, but that is TODO)
