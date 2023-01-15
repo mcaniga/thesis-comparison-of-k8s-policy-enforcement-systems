@@ -17,7 +17,7 @@ WRONGLY_REJECTED=()
 
 # Parse -n <namespace> argument
 DELETE_NAMESPACE='false'
-while getopts nd: flag
+while getopts n:d flag
 do
     case "${flag}" in
         n) NAMESPACE=${OPTARG};;
@@ -69,7 +69,7 @@ for filename in *; do
     # Strip .yml from filename
     POD_NAME=$(extract_podname $filename)
     # Try to apply secure pod to cluster
-    apply_pod $filename -n $NAMESPACE
+    apply_pod $filename $NAMESPACE
     # Check if namespace exists, if not create new
     if pod_exists $NAMESPACE $POD_NAME; then
       echo "Pod: $POD_NAME was successfully applied to cluster.";
