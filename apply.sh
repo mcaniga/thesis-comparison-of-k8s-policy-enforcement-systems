@@ -88,4 +88,27 @@ if [ "$DELETE_NAMESPACE" = true ] ; then
     delete_namespace $NAMESPACE
 fi
 
-# TODO: print some sort of report using the 4 lists declared at start of the script
+SUCCESSFULL_TOTAL=$((${#SUCCESSFULLY_ACCEPTED[@]} + ${#SUCCESSFULLY_REJECTED[@]}))
+WRONG_TOTAL=$((${#WRONGLY_ACCEPTED[@]} + ${#WRONGLY_REJECTED[@]}))
+TOTAL=$(($SUCCESSFULL_TOTAL + $WRONG_TOTAL))
+
+echo "-------------------------------"
+echo "Results"
+echo "-------------------------------"
+echo "Successfull: $SUCCESSFULL_TOTAL/$TOTAL"
+echo "$WRONG_TOTAL/$TOTAL"
+
+echo "Successfully accepted:"
+for i in "${SUCCESSFULLY_ACCEPTED[@]}"; do echo "$i"; done
+echo ""
+
+echo "Successfully rejected:"
+for i in "${SUCCESSFULLY_REJECTED[@]}"; do echo "$i"; done
+echo ""
+
+echo "Wrongly accepted:"
+for i in "${WRONGLY_ACCEPTED[@]}"; do echo "$i"; done
+echo ""
+
+echo "Wrongly rejected:"
+for i in "${WRONGLY_REJECTED[@]}"; do echo "$i"; done
