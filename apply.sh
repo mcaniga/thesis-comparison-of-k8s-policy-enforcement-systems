@@ -87,3 +87,5 @@ done
 if [ "$DELETE_NAMESPACE" = true ] ; then
     delete_namespace $NAMESPACE
 fi
+
+# TODO: print some sort of report using the 4 lists declared at start of the script
