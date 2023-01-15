@@ -3,6 +3,9 @@
 # Exit if simple command exits (NOT part of 'if', '&&', '||', ...) with a nonzero exit value
 set -e
 
+# Import k8s helper functions
+source ./k8s-helpers.sh
+
 echo "-------------------------------"
 echo "Starting cluster security check"
 echo "-------------------------------"
@@ -28,11 +31,11 @@ if [ -z $NAMESPACE ]; then
 fi
 
 # Check if namespace exists, if not create new
-if kubectl get namespace | grep -q "^$NAMESPACE "; then
+if namespace_exists $NAMESPACE; then
   echo "Using existing namespace $NAMESPACE";
 else
   echo "Creating namespace $NAMESPACE";
-  kubectl create namespace $NAMESPACE
+  create_namespace $NAMESPACE
 fi
 
 # Apply vulnerable pods to cluster
@@ -41,16 +44,16 @@ echo "Applying vulnerable pods"
 cd ./pods/vulnerable/
 for filename in *; do
     # Strip .yml from filename
-    POD_NAME=$(echo $filename | cut -f1 -d".")
+    POD_NAME=$(extract_podname $filename)
     # Try to apply vulnerable pod to cluster
-    kubectl apply -f $filename -n $NAMESPACE
+    apply_pod $filename $NAMESPACE
     # Check if vulnerable pod was applied to cluster
-    if kubectl get pods -n $NAMESPACE | grep -q "^$POD_NAME "; then
+    if pod_exists $NAMESPACE $POD_NAME; then
       echo "[WARN] Pod: $POD_NAME was applied to cluster but it should not.";
       # Add pod name to list of wrongly accepted pods
       WRONGLY_ACCEPTED+=($POD_NAME)
       # Delete the vulnerable pod from cluster
-      kubectl delete --wait=false -f $filename -n $NAMESPACE
+      delete_pod $filename $NAMESPACE
     else
       echo "Pod: $POD_NAME was successfully rejected";
       # Add pod name to list of successfully rejected pods
@@ -64,16 +67,16 @@ echo "Applying secure pods"
 cd ../secure/
 for filename in *; do
     # Strip .yml from filename
-    POD_NAME=$(echo $filename | cut -f1 -d".")
+    POD_NAME=$(extract_podname $filename)
     # Try to apply secure pod to cluster
-    kubectl apply -f $filename -n $NAMESPACE
+    apply_pod $filename -n $NAMESPACE
     # Check if namespace exists, if not create new
-    if kubectl get pods -n $NAMESPACE | grep -q "^$POD_NAME "; then
+    if pod_exists $NAMESPACE $POD_NAME; then
       echo "Pod: $POD_NAME was successfully applied to cluster.";
       # Add pod name to list of successfully accepted pods
       SUCCESSFULLY_ACCEPTED+=($POD_NAME)
       # Delete the secure pod from cluster
-      kubectl delete --wait=false -f $filename -n $NAMESPACE
+      delete_pod $filename $NAMESPACE
     else
       echo "[WARN] Pod: $POD_NAME was rejected but it should not.";
       # Add pod name to list of wrongly rejected pods
@@ -82,5 +85,5 @@ for filename in *; do
 done
 
 if [ "$DELETE_NAMESPACE" = true ] ; then
-    kubectl delete namespace --wait=false $NAMESPACE
+    delete_namespace $NAMESPACE
 fi
