@@ -22,3 +22,32 @@
       - **WARNING** - **d**eletes the namespace after test, usefull for new namespaces, may be malicious for existing namespaces
 - pods defined in `/pods/secure` are considered secure and must pass the policy checks - to ensure that policy is not simply rejecting all pods
 - pods defined in `/pods/vulnerable` are considered insecure and should not pass the policy checks (may with mutating controller, but that is TODO)
+
+## Example Output
+- execution with 1 vulnerable and 1 secure pod declaration
+- environment without policies, `secure-pod` is applied but `without-security-context` pod too
+```
+controlplane $ bash apply.sh -n test
+-------------------------------
+Starting cluster security check
+-------------------------------
+Creating namespace test
+
+Applying vulnerable pods...
+
+Applying secure pods...
+-------------------------------
+Results
+-------------------------------
+Successfull: 1/2
+1/2
+Successfully accepted:
+secure-pod
+
+Successfully rejected:
+
+Wrongly accepted:
+without-security-context
+
+Wrongly rejected:
+```
