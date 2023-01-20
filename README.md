@@ -28,6 +28,7 @@
     - `-d`
       - optional flag
       - **WARNING** - **d**eletes the namespace after test, usefull for new namespaces, may be malicious for existing namespaces
+# TODO: document '-e' parameter
 - pods defined in `/pods/secure` are considered secure and must pass the policy checks - to ensure that policy is not simply rejecting all pods
 - pods defined in `/pods/vulnerable` are considered insecure and should not pass the policy checks (may with mutating controller, but that is TODO)
 
