@@ -1,4 +1,5 @@
 # Kyverno policy validating if all containers in pod has read only root filesystem.
+# TODO: gatekeeper's policy is richer, checking also init and ephemeral containers
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
