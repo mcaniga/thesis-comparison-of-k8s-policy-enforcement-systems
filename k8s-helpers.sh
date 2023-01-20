@@ -51,3 +51,10 @@ function create_namespace {
 function delete_namespace {
   kubectl delete namespace --wait=false $1 > /dev/null
 }
+
+# Installs pod security enforcement library.
+# Accepts positional arguments:
+#   $1 - name of the lib, valid names: 'gatekeeper' | 'kyverno'
+function install_enforcement_lib {
+  bash ./$1/install.sh
+}
