@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Exit if simple command exits (NOT part of 'if', '&&', '||', ...) with a nonzero exit value
-set -e
+# For now commented out, because sometimes when kubectl ends with error (eg. Kyverno already exists), we want to continue - improve error handling/input validation
+# set -e
 
 # Import k8s helper functions
 source ./k8s-helpers.sh
@@ -17,14 +18,16 @@ WRONGLY_REJECTED=()
 
 # Parse -n <namespace> argument
 DELETE_NAMESPACE='false'
-while getopts n:d flag
+while getopts n:e:d flag
 do
     case "${flag}" in
         n) NAMESPACE=${OPTARG};;
+        e) ENFORCEMENT_LIB=${OPTARG};;
         d) DELETE_NAMESPACE='true';;
     esac
 done
 
+# Exit with failure if namespace is not provided
 if [ -z $NAMESPACE ]; then
         echo 'Namespace (-n) is required' >&2
         exit 1
@@ -36,6 +39,12 @@ if namespace_exists $NAMESPACE; then
 else
   echo "Creating namespace $NAMESPACE";
   create_namespace $NAMESPACE
+fi
+
+# Install enforcement lib if library name is specified
+# TODO: vulnerable pod is still applied, add sleep to ensure that policy is ready?
+if [ -n "$ENFORCEMENT_LIB" ]; then
+  install_enforcement_lib $ENFORCEMENT_LIB $NAMESPACE
 fi
 
 # Apply vulnerable pods to cluster
@@ -94,6 +103,7 @@ echo "-------------------------------"
 echo "Successfull: $SUCCESSFULL_TOTAL/$TOTAL"
 echo "$WRONG_TOTAL/$TOTAL"
 
+# TODO: eliminate redundancy by extracting to function, put it to results-helpers.sh
 echo "Successfully accepted:"
 for i in "${SUCCESSFULLY_ACCEPTED[@]}"; do echo "$i"; done
 echo ""

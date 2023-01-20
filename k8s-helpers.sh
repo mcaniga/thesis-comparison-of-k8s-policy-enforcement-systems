@@ -55,6 +55,17 @@ function delete_namespace {
 # Installs pod security enforcement library.
 # Accepts positional arguments:
 #   $1 - name of the lib, valid names: 'gatekeeper' | 'kyverno'
+#   $2 - namespace
 function install_enforcement_lib {
+  if [[ $1 != "kyverno" && $1 != "gatekeeper" ]]; then
+    echo 'Unknown enforcement library (-e). Known libraries - "kyverno", "gatekeeper"' >&2
+    exit 1
+  fi
+
   bash ./$1/install.sh
+
+  echo "./$1/policies/*"
+  for policy in ./$1/policies/*; do
+      kubectl apply -f $policy -n $2
+  done
 }
