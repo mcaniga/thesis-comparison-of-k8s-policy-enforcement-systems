@@ -3,7 +3,15 @@
 - implementation part of master thesis
 - tool for checking of cluster security through deployment of vulnerable pods
 - NOTE: **pod convention** - pod filename must match its `metadata.name` to correctly indentify if pod was applied to cluster
-- tested on Kubernetes 1.26
+
+## Supported Kubernetes versions
+- 1.26
+- (TODO: maybe will be tested on older versions )
+
+## Prerequisites
+- access to Kubernetes cluster
+- configured kubectl ( used by this tool to manipulate with cluster )
+- bash
 
 ## Quick setup
 - apply script either to k8s existing cluster or try free KillerCoda Kubernetes 1.26 environment - https://killercoda.com/playgrounds/scenario/kubernetes
