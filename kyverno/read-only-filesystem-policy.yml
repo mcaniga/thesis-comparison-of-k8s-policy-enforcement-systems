@@ -1,3 +1,4 @@
+# Kyverno policy validating if all containers in pod has read only root filesystem.
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
