@@ -64,7 +64,6 @@ function install_enforcement_lib {
 
   bash ./$1/install.sh
 
-  echo "./$1/policies/*"
   for policy in ./$1/policies/*; do
       kubectl apply -f $policy -n $2
   done
