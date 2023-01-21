@@ -26,21 +26,27 @@ function namespace_exists {
 # Accepts positional arguments:
 #   $1 - path to pod declaration file
 #   $2 - namespace
+# Uses global variable:
+#   $PROJECT_ROOT - path to the project root
 function apply_pod {
-  kubectl apply -f $1 -n $2 >> exec.log
+  kubectl apply -f $1 -n $2 >> $PROJECT_ROOT/exec.log
 }
 
 # Schedules k8s pod to be deleted. Does not wait for pod termination to be over.
 # Accepts positional arguments:
 #   $1 - path to pod declaration file
 #   $2 - namespace
+# Uses global variable:
+#   $PROJECT_ROOT - path to the project root
 function delete_pod {
-  kubectl delete --wait=false -f $1 -n $2 >> exec.log
+  kubectl delete --wait=false -f $1 -n $2 >> $PROJECT_ROOT/exec.log
 }
 
 # Creates k8s namespace.
 # Accepts positional arguments:
 #   $1 - namespace
+# Uses global variable:
+#   $PROJECT_ROOT - path to the project root
 function create_namespace {
   kubectl create namespace $1 >> exec.log
 }
@@ -48,8 +54,10 @@ function create_namespace {
 # Schedules k8s namespace along with its pods to be deleted. Does not wait for pod termination to be over.
 # Accepts positional arguments:
 #   $1 - namespace
+# Uses global variable:
+#   $PROJECT_ROOT - path to the project root
 function delete_namespace {
-  kubectl delete namespace --wait=false $1 >> exec.log
+  kubectl delete namespace --wait=false $1 >>  $PROJECT_ROOT/exec.log
 }
 
 # Installs pod security enforcement library.

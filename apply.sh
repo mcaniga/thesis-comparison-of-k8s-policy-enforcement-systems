@@ -13,6 +13,8 @@ echo "-------------------------------"
 
 date >> exec.log
 
+PROJECT_ROOT=$(pwd)
+
 SUCCESSFULLY_ACCEPTED=()
 SUCCESSFULLY_REJECTED=()
 WRONGLY_ACCEPTED=()
@@ -105,7 +107,6 @@ echo "-------------------------------"
 echo "Successfull: $SUCCESSFULL_TOTAL/$TOTAL"
 echo "$WRONG_TOTAL/$TOTAL"
 
-# TODO: eliminate redundancy by extracting to function, put it to results-helpers.sh
 echo "Successfully accepted:"
 for i in "${SUCCESSFULLY_ACCEPTED[@]}"; do echo "$i"; done
 echo ""
