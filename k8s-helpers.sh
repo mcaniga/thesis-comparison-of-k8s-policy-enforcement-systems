@@ -27,7 +27,7 @@ function namespace_exists {
 #   $1 - path to pod declaration file
 #   $2 - namespace
 function apply_pod {
-  kubectl apply -f $1 -n $2 > /dev/null
+  kubectl apply -f $1 -n $2 >> exec.log
 }
 
 # Schedules k8s pod to be deleted. Does not wait for pod termination to be over.
@@ -35,21 +35,21 @@ function apply_pod {
 #   $1 - path to pod declaration file
 #   $2 - namespace
 function delete_pod {
-  kubectl delete --wait=false -f $1 -n $2 > /dev/null
+  kubectl delete --wait=false -f $1 -n $2 >> exec.log
 }
 
 # Creates k8s namespace.
 # Accepts positional arguments:
 #   $1 - namespace
 function create_namespace {
-  kubectl create namespace $1 > /dev/null
+  kubectl create namespace $1 >> exec.log
 }
 
 # Schedules k8s namespace along with its pods to be deleted. Does not wait for pod termination to be over.
 # Accepts positional arguments:
 #   $1 - namespace
 function delete_namespace {
-  kubectl delete namespace --wait=false $1 > /dev/null
+  kubectl delete namespace --wait=false $1 >> exec.log
 }
 
 # Installs pod security enforcement library.

@@ -11,6 +11,8 @@ echo "-------------------------------"
 echo "Starting cluster security check"
 echo "-------------------------------"
 
+date >> exec.log
+
 SUCCESSFULLY_ACCEPTED=()
 SUCCESSFULLY_REJECTED=()
 WRONGLY_ACCEPTED=()
