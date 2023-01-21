@@ -2,11 +2,11 @@
 
 source k8s-helpers.sh
 
+# Install OPA Gatekeeper 3.11
 # TODO: use helm?
-# TODO: version can be specified also without helm, can't use 'master' in final form of thesis
 
 function install_gatekeeper {
-  kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/master/deploy/gatekeeper.yaml
+  kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.11/deploy/gatekeeper.yaml
 }
 
 if namespace_exists "gatekeeper-system"; then
