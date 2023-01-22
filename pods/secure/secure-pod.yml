@@ -10,3 +10,5 @@ spec:
     - name: secure
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
+      securityContext:
+        readOnlyRootFilesystem: true
