@@ -17,8 +17,8 @@ metadata:
       with `readOnlyRootFilesystem: true`.
 spec:
   # Specifies action done when validation fails
-  # Allowed values: 'Audit' (report but allow) | 'Enforce' (don't allow to create invalid resource)
-  validationFailureAction: Enforce
+  # Allowed values: 'audit' (report but allow) | 'enforce' (don't allow to create invalid resource)
+  validationFailureAction: enforce
   # Specifies if policy applies also on already existing resources
   # If set to true, then violations are reported (but existing resources are not blocked - 'audit' semantics)
   background: true
