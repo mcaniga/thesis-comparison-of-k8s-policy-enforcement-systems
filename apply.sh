@@ -59,13 +59,13 @@ for filename in *; do
     # Strip .yml from filename
     POD_NAME=$(extract_podname $filename)
     # Try to apply vulnerable pod to cluster
-    apply_pod $filename $NAMESPACE
+    apply_resource $filename $NAMESPACE
     # Check if vulnerable pod was applied to cluster
     if pod_exists $NAMESPACE $POD_NAME; then
       # Add pod name to list of wrongly accepted pods
       WRONGLY_ACCEPTED+=($POD_NAME)
       # Delete the vulnerable pod from cluster
-      delete_pod $filename $NAMESPACE
+      delete_resource $filename $NAMESPACE
     else
       # Add pod name to list of successfully rejected pods
       SUCCESSFULLY_REJECTED+=($POD_NAME)
@@ -80,13 +80,13 @@ for filename in *; do
     # Strip .yml from filename
     POD_NAME=$(extract_podname $filename)
     # Try to apply secure pod to cluster
-    apply_pod $filename $NAMESPACE
+    apply_resource $filename $NAMESPACE
     # Check if namespace exists, if not create new
     if pod_exists $NAMESPACE $POD_NAME; then
       # Add pod name to list of successfully accepted pods
       SUCCESSFULLY_ACCEPTED+=($POD_NAME)
       # Delete the secure pod from cluster
-      delete_pod $filename $NAMESPACE
+      delete_resource $filename $NAMESPACE
     else
       # Add pod name to list of wrongly rejected pods
       WRONGLY_REJECTED+=($POD_NAME)

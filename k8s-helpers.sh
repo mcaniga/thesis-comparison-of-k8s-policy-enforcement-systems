@@ -22,13 +22,13 @@ function namespace_exists {
   kubectl get namespace | grep -q "^$1 "
 }
 
-# Applies k8s pod to given namespace.
+# Applies k8s resource to given namespace.
 # Accepts positional arguments:
-#   $1 - path to pod declaration file
+#   $1 - path to resource declaration file
 #   $2 - namespace
 # Uses global variable:
 #   $PROJECT_ROOT - path to the project root
-function apply_pod {
+function apply_resource {
   kubectl apply -f $1 -n $2 >> $PROJECT_ROOT/exec.log
 }
 
@@ -38,7 +38,7 @@ function apply_pod {
 #   $2 - namespace
 # Uses global variable:
 #   $PROJECT_ROOT - path to the project root
-function delete_pod {
+function delete_resource {
   kubectl delete --wait=false -f $1 -n $2 >> $PROJECT_ROOT/exec.log
 }
 
@@ -60,19 +60,33 @@ function delete_namespace {
   kubectl delete namespace --wait=false $1 >>  $PROJECT_ROOT/exec.log
 }
 
+# Waits until pod is in ready state.
+# Accepts positional arguments:
+#   $1 - pod's label
+#   $2 - namespace
+# Uses global variable:
+#   $PROJECT_ROOT - path to the project root
+function wait_until_pod_ready {
+  kubectl wait --for=condition=ready pod -l $1 -n $2 >>  $PROJECT_ROOT/exec.log
+}
+
+
 # Installs pod security enforcement library.
 # Accepts positional arguments:
 #   $1 - name of the lib, valid names: 'gatekeeper' | 'kyverno'
 #   $2 - namespace
 function install_enforcement_lib {
+  # Validate if enforcement lib is known
   if [[ $1 != "kyverno" && $1 != "gatekeeper" ]]; then
     echo 'Unknown enforcement library (-e). Known libraries - "kyverno", "gatekeeper"' >&2
     exit 1
   fi
 
+  # Install enforcement library
   bash ./$1/install.sh
 
+  # Install associated policies
   for policy in ./$1/policies/*; do
-      kubectl apply -f $policy -n $2
+      apply_resource $policy $2
   done
 }
