@@ -105,7 +105,7 @@ echo "-------------------------------"
 echo "Results"
 echo "-------------------------------"
 echo "Successfull: $SUCCESSFULL_TOTAL/$TOTAL"
-echo "$WRONG_TOTAL/$TOTAL"
+echo "Unsuccessfull: $WRONG_TOTAL/$TOTAL"
 
 echo "Successfully accepted:"
 for i in "${SUCCESSFULLY_ACCEPTED[@]}"; do echo "$i"; done
