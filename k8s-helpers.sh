@@ -70,6 +70,12 @@ function wait_until_pod_ready {
   kubectl wait --for=condition=ready pod -l $1 -n $2 >>  $PROJECT_ROOT/exec.log
 }
 
+# Checks if cluster policies are ready
+# Returns 1 if cluster policies are not ready
+function are_clusterpolicies_ready {
+  # extracts 4th (READY) column, removes header line, check if at least one cluster policy has ready = "false"
+  kubectl get clusterpolicy -A | awk '{print $4}' | tail -n +2 | while read line; do [[ "$line" == "false" ]] && return 1; done
+}
 
 # Installs pod security enforcement library.
 # Accepts positional arguments:
