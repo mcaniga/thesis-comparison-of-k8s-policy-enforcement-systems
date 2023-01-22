@@ -7,6 +7,7 @@ source k8s-helpers.sh
 
 function install_gatekeeper {
   kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.11/deploy/gatekeeper.yaml
+  echo "Installing gatekeeper..."
   wait_until_pod_ready "gatekeeper.sh/operation=audit" "gatekeeper-system"
 }
 
