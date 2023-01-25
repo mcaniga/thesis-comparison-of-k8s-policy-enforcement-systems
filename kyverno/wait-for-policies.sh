@@ -2,24 +2,13 @@
 
 source k8s-helpers.sh
 
-# Checks if cluster policies are ready
-# Extracts 4th (READY) column, removes header line, check if at least one cluster policy has ready = "false"
-# Exits with 0 if cluster policies are ready, otherwise with 1
-function are_clusterpolicies_ready {
-  # extracts 4th (READY) column, removes header line, check if at least one cluster policy has ready = "false"
-  READINESS_FLAGS=$(kubectl get clusterpolicy -A | awk '{print $4}' | tail -n +2)
-  while read -r line
-  do
-    if [ $line == "false" ]; then
-      return 1;
-    fi
-  done < <($READINESS_FLAGS)
-  return 0;
+# Waits until all kyverno clusterpolicies in namespace are in ready state.
+# Accepts positional arguments:
+#   $1 - namespace
+# Uses global variable:
+#   $PROJECT_ROOT - path to the project root
+function wait_until_clusterpolicies_are_ready {
+  kubectl wait --for=condition=ready clusterpolicy -n $1 --all >>  $PROJECT_ROOT/exec.log
 }
 
-# Check every second if Kyverno clusterpolicies are ready
-are_clusterpolicies_ready
-while [ $? -eq 1 ]; do
-        sleep 1
-        are_clusterpolicies_ready
-done
+wait_until_clusterpolicies_are_ready "kyverno"
