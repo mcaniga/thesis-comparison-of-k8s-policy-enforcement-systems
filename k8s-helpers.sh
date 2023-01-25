@@ -70,6 +70,15 @@ function wait_until_pod_ready {
   kubectl wait --for=condition=ready pod -l $1 -n $2 >>  $PROJECT_ROOT/exec.log
 }
 
+# Waits until all pods in namespace are in ready state.
+# Accepts positional arguments:
+#   $1 - namespace
+# Uses global variable:
+#   $PROJECT_ROOT - path to the project root
+function wait_until_pods_ready {
+  kubectl wait --for=condition=ready pod -n $1 --all >>  $PROJECT_ROOT/exec.log
+}
+
 # Installs pod security enforcement library.
 # Accepts positional arguments:
 #   $1 - name of the lib, valid names: 'gatekeeper' | 'kyverno'
