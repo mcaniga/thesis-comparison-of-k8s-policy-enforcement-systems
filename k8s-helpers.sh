@@ -79,6 +79,7 @@ function wait_until_pods_ready {
   kubectl wait --for=condition=ready pod -n $1 --all >>  $PROJECT_ROOT/exec.log
 }
 
+# TODO: add "kubewarden"
 # Installs pod security enforcement library.
 # Accepts positional arguments:
 #   $1 - name of the lib, valid names: 'gatekeeper' | 'kyverno'
