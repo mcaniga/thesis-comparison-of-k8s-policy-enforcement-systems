@@ -9,12 +9,14 @@
 - (TODO: maybe will be tested on older versions )
 
 ## Prerequisites
-- access to Kubernetes cluster
-- configured kubectl ( used by this tool to manipulate with cluster )
+- access to Kubernetes cluster and kubectl
 - bash
+- Helm v3 (tested on v3.6.3)
+  - installation - https://helm.sh/docs/intro/install/
 
 ## Quick setup
-- apply script either to k8s existing cluster or try free KillerCoda Kubernetes 1.26 environment - https://killercoda.com/playgrounds/scenario/kubernetes
+- apply script either to existing k8s cluster or try **free KillerCoda Kubernetes 1.26** environment - https://killercoda.com/playgrounds/scenario/kubernetes
+  - KillerCoda Kubernetes 1.26 environment already matches specified prerequisites in Prerequisites section - **recomended for testing**
 - `git clone https://github.com/mcaniga/thesis-comparison-of-k8s-policy-enforcement-systems.git`
 - `bash apply.sh -n cluster-security-check`
 

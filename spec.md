@@ -152,7 +152,6 @@ controlplane $ bash apply.sh -n test -e gatekeeper
 ```
 
 - **output**
-- TODO: 'without-security-context' should be in 'Successfully rejected' - can be linked with error in logs
 ```
 -------------------------------
 Starting cluster security check
