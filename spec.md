@@ -43,7 +43,7 @@ controlplane $ bash apply.sh -n test -e unknownlib
 Starting cluster security check
 -------------------------------
 Using existing namespace: 'test'
-Unknown enforcement library (-e). Known libraries - "kyverno", "gatekeeper"
+Unknown enforcement library (-e). Known libraries - "kyverno", "gatekeeper", "kubewarden"
 ```
 
 ## "Good case" scenarios
