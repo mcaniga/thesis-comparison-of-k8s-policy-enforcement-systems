@@ -157,7 +157,6 @@ Wrongly rejected:
 ```
 
 ### Cluster security check - new namespace, Gatekeeper as policy enforcement
-- TODO: 'without-security-context' was accepted, error in logs
 - **input**
 ```
 controlplane $ bash apply.sh -n test -e gatekeeper
@@ -194,25 +193,25 @@ poddisruptionbudget.policy/gatekeeper-controller-manager created
 mutatingwebhookconfiguration.admissionregistration.k8s.io/gatekeeper-mutating-webhook-configuration created
 validatingwebhookconfiguration.admissionregistration.k8s.io/gatekeeper-validating-webhook-configuration created
 Installing gatekeeper...
-error: resource mapping not found for name: "psp-readonlyrootfilesystem" namespace: "" from "./gatekeeper/policies/read-only-filesystem-policy.yml": no matches for kind "K8sPSPReadOnlyRootFilesystem" in version "constraints.gatekeeper.sh/v1beta1"
-ensure CRDs are installed first
 Waiting for policies to be ready
 
 Applying vulnerable pods...
+Error from server (Forbidden): error when creating "without-security-context.yml": admission webhook "validation.gatekeeper.sh" denied the request: [psp-readonlyrootfilesystem] only read-only root filesystem container is allowed: without-security-context
+No resources found in test namespace.
 
 Applying secure pods...
 -------------------------------
 Results
 -------------------------------
-Successfull: 1/2
-Unsuccessfull: 1/2
+Successfull: 2/2
+Unsuccessfull: 0/2
 Successfully accepted:
 secure-pod
 
 Successfully rejected:
+without-security-context
 
 Wrongly accepted:
-without-security-context
 
 Wrongly rejected:
 ```
