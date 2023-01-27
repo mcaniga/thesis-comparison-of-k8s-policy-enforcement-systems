@@ -221,3 +221,123 @@ Wrongly accepted:
 
 Wrongly rejected:
 ```
+
+### Cluster security check - new namespace, Kubewarden as policy enforcement
+- TODO: kubewarden does not have any policies - 'without-security-context' was successfully applied
+- **input**
+```
+controlplane $ bash apply.sh -n test -e kubewarden
+```
+
+- **output**
+```
+-------------------------------
+Starting cluster security check
+-------------------------------
+Creating namespace test
+Installing kubewarden (crds - 1.2.3, controller 1.4.0, defaults 1.5.1)...
+namespace/cert-manager created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
+serviceaccount/cert-manager-cainjector created
+serviceaccount/cert-manager created
+serviceaccount/cert-manager-webhook created
+configmap/cert-manager-webhook created
+clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrole.rbac.authorization.k8s.io/cert-manager-view created
+clusterrole.rbac.authorization.k8s.io/cert-manager-edit created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests created
+clusterrole.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews created
+role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+service/cert-manager created
+service/cert-manager-webhook created
+deployment.apps/cert-manager-cainjector created
+deployment.apps/cert-manager created
+deployment.apps/cert-manager-webhook created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+deployment.apps/cert-manager condition met
+deployment.apps/cert-manager-cainjector condition met
+deployment.apps/cert-manager-webhook condition met
+"kubewarden" has been added to your repositories
+NAME: kubewarden-crds
+LAST DEPLOYED: Fri Jan 27 10:05:31 2023
+NAMESPACE: kubewarden
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NAME: kubewarden-controller
+LAST DEPLOYED: Fri Jan 27 10:05:34 2023
+NAMESPACE: kubewarden
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+kubewarden-controller installed.
+
+You can start defining admission policies by using the cluster-wide
+`clusteradmissionpolicies.policies.kubewarden.io` or the namespaced
+`admissionpolicies.policies.kubewarden.io` resources.
+
+For more information check out https://kubewarden.io/
+NAME: kubewarden-defaults
+LAST DEPLOYED: Fri Jan 27 10:05:48 2023
+NAMESPACE: kubewarden
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+kubewarden-defaults installed.
+
+You now have a PolicyServer running in your cluster ready to run any
+`clusteradmissionpolicies.policies.kubewarden.io` or
+`admissionpolicies.policies.kubewarden.io` resources.
+
+For more information on how to define policies, check out https://kubewarden.io/
+error: no objects passed to apply
+Waiting for policies to be ready
+
+Applying vulnerable pods...
+
+Applying secure pods...
+-------------------------------
+Results
+-------------------------------
+Successfull: 1/2
+Unsuccessfull: 1/2
+Successfully accepted:
+secure-pod
+
+Successfully rejected:
+
+Wrongly accepted:
+without-security-context
+
+Wrongly rejected:
+```
