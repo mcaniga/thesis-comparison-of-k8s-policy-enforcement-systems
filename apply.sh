@@ -13,7 +13,7 @@ echo "-------------------------------"
 
 date >> exec.log
 
-PROJECT_ROOT=$(pwd)
+export SC_PROJECT_ROOT=$(pwd)
 
 SUCCESSFULLY_ACCEPTED=()
 SUCCESSFULLY_REJECTED=()

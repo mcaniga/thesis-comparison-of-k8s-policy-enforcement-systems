@@ -27,9 +27,9 @@ function namespace_exists {
 #   $1 - path to resource declaration file
 #   $2 - namespace
 # Uses global variable:
-#   $PROJECT_ROOT - path to the project root
+#   $SC_PROJECT_ROOT - path to the project root
 function apply_resource {
-  kubectl apply -f $1 -n $2 >> $PROJECT_ROOT/exec.log
+  kubectl apply -f $1 -n $2 >> $SC_PROJECT_ROOT/exec.log
 }
 
 # Schedules k8s pod to be deleted. Does not wait for pod termination to be over.
@@ -37,16 +37,16 @@ function apply_resource {
 #   $1 - path to pod declaration file
 #   $2 - namespace
 # Uses global variable:
-#   $PROJECT_ROOT - path to the project root
+#   $SC_PROJECT_ROOT - path to the project root
 function delete_resource {
-  kubectl delete --wait=false -f $1 -n $2 >> $PROJECT_ROOT/exec.log
+  kubectl delete --wait=false -f $1 -n $2 >> $SC_PROJECT_ROOT/exec.log
 }
 
 # Creates k8s namespace.
 # Accepts positional arguments:
 #   $1 - namespace
 # Uses global variable:
-#   $PROJECT_ROOT - path to the project root
+#   $SC_PROJECT_ROOT - path to the project root
 function create_namespace {
   kubectl create namespace $1 >> exec.log
 }
@@ -55,9 +55,9 @@ function create_namespace {
 # Accepts positional arguments:
 #   $1 - namespace
 # Uses global variable:
-#   $PROJECT_ROOT - path to the project root
+#   $SC_PROJECT_ROOT - path to the project root
 function delete_namespace {
-  kubectl delete namespace --wait=false $1 >>  $PROJECT_ROOT/exec.log
+  kubectl delete namespace --wait=false $1 >>  $SC_PROJECT_ROOT/exec.log
 }
 
 # Waits until pod is in ready state.
@@ -65,18 +65,18 @@ function delete_namespace {
 #   $1 - pod's label
 #   $2 - namespace
 # Uses global variable:
-#   $PROJECT_ROOT - path to the project root
+#   $SC_PROJECT_ROOT - path to the project root
 function wait_until_pod_ready {
-  kubectl wait --for=condition=ready pod -l $1 -n $2 >>  $PROJECT_ROOT/exec.log
+  kubectl wait --for=condition=ready pod -l $1 -n $2 >>  $SC_PROJECT_ROOT/exec.log
 }
 
 # Waits until all pods in namespace are in ready state.
 # Accepts positional arguments:
 #   $1 - namespace
 # Uses global variable:
-#   $PROJECT_ROOT - path to the project root
+#   $SC_PROJECT_ROOT - path to the project root
 function wait_until_pods_ready {
-  kubectl wait --for=condition=ready pod -n $1 --all >>  $PROJECT_ROOT/exec.log
+  kubectl wait --for=condition=ready pod -n $1 --all >>  $SC_PROJECT_ROOT/exec.log
 }
 
 # Installs pod security enforcement library.
