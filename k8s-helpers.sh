@@ -86,7 +86,7 @@ function wait_until_pods_ready {
 function install_enforcement_lib {
   # Validate if enforcement lib is known
   if [[ $1 != "kyverno" && $1 != "gatekeeper" && $1 != "kubewarden" ]]; then
-    echo 'Unknown enforcement library (-e). Known libraries - "kyverno", "gatekeeper", "kubewarden"' >&2
+    echo "Unknown enforcement library: '${1}' (supplied via -e parameter). Known libraries - 'kyverno', 'gatekeeper', 'kubewarden'" >&2
     exit 1
   fi
 
