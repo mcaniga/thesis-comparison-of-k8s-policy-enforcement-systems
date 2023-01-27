@@ -6,9 +6,9 @@ source k8s-helpers.sh
 # TODO: use helm?
 
 function install_gatekeeper {
-  kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.11/deploy/gatekeeper.yaml
+  kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.11/deploy/gatekeeper.yaml >> $SC_PROJECT_ROOT/exec.log
   echo "Installing gatekeeper..."
-  wait_until_pod_ready "gatekeeper.sh/operation=audit" "gatekeeper-system"
+  wait_until_pods_ready "gatekeeper-system"
 }
 
 if namespace_exists "gatekeeper-system"; then

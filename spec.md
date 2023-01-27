@@ -168,30 +168,6 @@ controlplane $ bash apply.sh -n test -e gatekeeper
 Starting cluster security check
 -------------------------------
 Creating namespace test
-namespace/gatekeeper-system created
-resourcequota/gatekeeper-critical-pods created
-customresourcedefinition.apiextensions.k8s.io/assign.mutations.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/assignmetadata.mutations.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/configs.config.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/constraintpodstatuses.status.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/constrainttemplatepodstatuses.status.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/constrainttemplates.templates.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/expansiontemplate.expansion.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/modifyset.mutations.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/mutatorpodstatuses.status.gatekeeper.sh created
-customresourcedefinition.apiextensions.k8s.io/providers.externaldata.gatekeeper.sh created
-serviceaccount/gatekeeper-admin created
-role.rbac.authorization.k8s.io/gatekeeper-manager-role created
-clusterrole.rbac.authorization.k8s.io/gatekeeper-manager-role created
-rolebinding.rbac.authorization.k8s.io/gatekeeper-manager-rolebinding created
-clusterrolebinding.rbac.authorization.k8s.io/gatekeeper-manager-rolebinding created
-secret/gatekeeper-webhook-server-cert created
-service/gatekeeper-webhook-service created
-deployment.apps/gatekeeper-audit created
-deployment.apps/gatekeeper-controller-manager created
-poddisruptionbudget.policy/gatekeeper-controller-manager created
-mutatingwebhookconfiguration.admissionregistration.k8s.io/gatekeeper-mutating-webhook-configuration created
-validatingwebhookconfiguration.admissionregistration.k8s.io/gatekeeper-validating-webhook-configuration created
 Installing gatekeeper...
 Waiting for policies to be ready
 
