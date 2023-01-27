@@ -67,6 +67,8 @@ function delete_namespace {
 # Uses global variable:
 #   $SC_PROJECT_ROOT - path to the project root
 function wait_until_pod_ready {
+  # Wait a little bit for pods to be found by kubectl
+  sleep 2
   kubectl wait --for=condition=ready pod -l $1 -n $2 >>  $SC_PROJECT_ROOT/exec.log
 }
 
@@ -76,6 +78,8 @@ function wait_until_pod_ready {
 # Uses global variable:
 #   $SC_PROJECT_ROOT - path to the project root
 function wait_until_pods_ready {
+  # Wait a little bit for pods to be found by kubectl
+  sleep 2
   kubectl wait --for=condition=ready pod -n $1 --all >>  $SC_PROJECT_ROOT/exec.log
 }
 
