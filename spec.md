@@ -92,41 +92,7 @@ Starting cluster security check
 Creating namespace test
 Installing Kyverno 1.7 in Standalone mode
 For production installation, use 'helm' package manager for Kubernetes, specify exact version, and set at least 3 replicas.
-namespace/kyverno created
-customresourcedefinition.apiextensions.k8s.io/clusterpolicies.kyverno.io created
-customresourcedefinition.apiextensions.k8s.io/clusterpolicyreports.wgpolicyk8s.io created
-customresourcedefinition.apiextensions.k8s.io/clusterreportchangerequests.kyverno.io created
-customresourcedefinition.apiextensions.k8s.io/generaterequests.kyverno.io created
-customresourcedefinition.apiextensions.k8s.io/policies.kyverno.io created
-customresourcedefinition.apiextensions.k8s.io/policyreports.wgpolicyk8s.io created
-customresourcedefinition.apiextensions.k8s.io/reportchangerequests.kyverno.io created
-customresourcedefinition.apiextensions.k8s.io/updaterequests.kyverno.io created
-serviceaccount/kyverno-service-account created
-role.rbac.authorization.k8s.io/kyverno:leaderelection created
-clusterrole.rbac.authorization.k8s.io/kyverno:admin-generaterequest created
-clusterrole.rbac.authorization.k8s.io/kyverno:admin-policies created
-clusterrole.rbac.authorization.k8s.io/kyverno:admin-policyreport created
-clusterrole.rbac.authorization.k8s.io/kyverno:admin-reportchangerequest created
-clusterrole.rbac.authorization.k8s.io/kyverno:events created
-clusterrole.rbac.authorization.k8s.io/kyverno:generate created
-clusterrole.rbac.authorization.k8s.io/kyverno:policies created
-clusterrole.rbac.authorization.k8s.io/kyverno:userinfo created
-clusterrole.rbac.authorization.k8s.io/kyverno:view created
-clusterrole.rbac.authorization.k8s.io/kyverno:webhook created
-rolebinding.rbac.authorization.k8s.io/kyverno:leaderelection created
-clusterrolebinding.rbac.authorization.k8s.io/kyverno:events created
-clusterrolebinding.rbac.authorization.k8s.io/kyverno:generate created
-clusterrolebinding.rbac.authorization.k8s.io/kyverno:policies created
-clusterrolebinding.rbac.authorization.k8s.io/kyverno:userinfo created
-clusterrolebinding.rbac.authorization.k8s.io/kyverno:view created
-clusterrolebinding.rbac.authorization.k8s.io/kyverno:webhook created
-configmap/kyverno created
-configmap/kyverno-metrics created
-service/kyverno-svc created
-service/kyverno-svc-metrics created
-deployment.apps/kyverno created
 Installing Kyverno...
-error: timed out waiting for the condition on pods/kyverno-5cb75df46-zkg67
 Waiting for policies to be ready
 
 Applying vulnerable pods...
