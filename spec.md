@@ -37,7 +37,6 @@ Namespace (-n) is required
 controlplane $ bash apply.sh -n test -e unknownlib
 ```
 - **output**
-- TODO: will be edited as "kubewarden" will be added
 ```
 -------------------------------
 Starting cluster security check

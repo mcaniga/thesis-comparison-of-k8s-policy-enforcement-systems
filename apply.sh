@@ -46,7 +46,6 @@ else
 fi
 
 # Install enforcement lib if library name is specified
-# TODO: vulnerable pod is still applied, add sleep to ensure that policy is ready?
 if [ -n "$ENFORCEMENT_LIB" ]; then
   install_enforcement_lib $ENFORCEMENT_LIB $NAMESPACE
 fi
