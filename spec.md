@@ -42,7 +42,7 @@ controlplane $ bash apply.sh -n test -e unknownlib
 Starting cluster security check
 -------------------------------
 Using existing namespace: 'test'
-Unknown enforcement library: 'aaa' (supplied via -e parameter). Known libraries - 'kyverno', 'gatekeeper', 'kubewarden'
+Unknown enforcement library: 'aaa' (supplied via -e parameter). Known libraries - 'kyverno', 'gatekeeper', 'kubewarden', 'built-in'
 ```
 
 ## "Good case" scenarios
@@ -196,4 +196,16 @@ without-security-context
 Wrongly accepted:
 
 Wrongly rejected:
+```
+
+### Cluster security check - new namespace, built-in admission controller as policy enforcement
+- TODO: provide output
+- **input**
+```
+controlplane $ bash apply.sh -n test -e built-in
+```
+
+- **output**
+```
+
 ```
