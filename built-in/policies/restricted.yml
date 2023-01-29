@@ -1,3 +1,6 @@
+# TODO: looks like admission controller file must be specified at kubeapi-server startup
+# https://www.lullabot.com/articles/how-make-changes-kube-apiserver
+
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
