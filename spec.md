@@ -175,24 +175,25 @@ Waiting for cert manager...
 Waiting for crds...
 Waiting for controller...
 Waiting for defaults...
-error: no objects passed to apply
 Waiting for policies to be ready
 
 Applying vulnerable pods...
+Error from server: error when creating "without-security-context.yml": admission webhook "clusterwide-read-only-filesystem-policy.kubewarden.admission" denied the request: One of the containers does not have readOnlyRootFilesystem enabled
+No resources found in test namespace.
 
 Applying secure pods...
 -------------------------------
 Results
 -------------------------------
-Successfull: 1/2
-Unsuccessfull: 1/2
+Successfull: 2/2
+Unsuccessfull: 0/2
 Successfully accepted:
 secure-pod
 
 Successfully rejected:
+without-security-context
 
 Wrongly accepted:
-without-security-context
 
 Wrongly rejected:
 ```
