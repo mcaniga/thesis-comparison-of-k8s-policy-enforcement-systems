@@ -22,11 +22,12 @@ WRONGLY_REJECTED=()
 
 # Parse -n <namespace> argument
 DELETE_NAMESPACE='false'
-while getopts n:e:d flag
+while getopts n:e:p:d flag
 do
     case "${flag}" in
         n) NAMESPACE=${OPTARG};;
         e) ENFORCEMENT_LIB=${OPTARG};;
+        p) SECURITY_PROFILE=${OPTARG};;
         d) DELETE_NAMESPACE='true';;
     esac
 done
@@ -48,6 +49,11 @@ fi
 # Install enforcement lib if library name is specified
 if [ -n "$ENFORCEMENT_LIB" ]; then
   install_enforcement_lib $ENFORCEMENT_LIB $NAMESPACE
+fi
+
+# Apply security profile to namespace if profile is specified
+if [ -n "$SECURITY_PROFILE" ]; then
+  apply_security_profile $SECURITY_PROFILE $NAMESPACE
 fi
 
 # Apply vulnerable pods to cluster

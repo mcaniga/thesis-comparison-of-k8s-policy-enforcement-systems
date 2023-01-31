@@ -48,7 +48,18 @@ function delete_resource {
 # Uses global variable:
 #   $SC_PROJECT_ROOT - path to the project root
 function create_namespace {
-  kubectl create namespace $1 >> exec.log
+  kubectl create namespace $1 >> $SC_PROJECT_ROOT/exec.log
+}
+
+# Changes label of given namespace.
+# If label already exists, it will be overwritten.
+# Accepts positional arguments:
+#   $1 - desired label
+#   $2 - namespace
+# Uses global variable:
+#   $SC_PROJECT_ROOT - path to the project root
+function change_namespace_label {
+  kubectl label --overwrite namespaces $2 $1 >> $SC_PROJECT_ROOT/exec.log
 }
 
 # Schedules k8s namespace along with its pods to be deleted. Does not wait for pod termination to be over.
@@ -85,12 +96,12 @@ function wait_until_pods_ready {
 
 # Installs pod security enforcement library.
 # Accepts positional arguments:
-#   $1 - name of the lib, valid names: 'gatekeeper' | 'kyverno' | 'kubewarden' | 'built-in'
+#   $1 - name of the lib, valid names: 'gatekeeper' | 'kyverno' | 'kubewarden'
 #   $2 - namespace
 function install_enforcement_lib {
   # Validate if enforcement lib is known
-  if [[ $1 != "kyverno" && $1 != "gatekeeper" && $1 != "kubewarden" && $1 != "built-in" ]]; then
-    echo "Unknown enforcement library: '${1}' (supplied via -e parameter). Known libraries - 'kyverno', 'gatekeeper', 'kubewarden', 'built-in'" >&2
+  if [[ $1 != "kyverno" && $1 != "gatekeeper" && $1 != "kubewarden" ]]; then
+    echo "Unknown enforcement library: '${1}' (supplied via -e parameter). Known libraries - 'kyverno', 'gatekeeper', 'kubewarden'" >&2
     exit 1
   fi
 
@@ -104,4 +115,20 @@ function install_enforcement_lib {
 
   echo "Waiting for policies to be ready"
   bash ./$1/wait-for-policies.sh
+}
+
+# Installs pod security enforcement library.
+# Accepts positional arguments:
+#   $1 - security profile from Pod Security Standards - valid profiles: 'privileged' | 'baseline' | 'restricted'
+#   $2 - namespace
+function apply_security_profile {
+  # Validate if enforcement lib is known
+  if [[ $1 != "privileged" && $1 != "baseline" && $1 != "restricted" ]]; then
+    echo "Unknown security profile: '${1}' (supplied via -p parameter). Known profiles - 'privileged', 'baseline', 'restricted'" >&2
+    exit 1
+  fi
+
+  echo "Applying security profile - '$1' to namespace"
+  change_namespace_label "pod-security.kubernetes.io/enforce=$1" $2
+  change_namespace_label "pod-security.kubernetes.io/enforce-version=v1.26" $2
 }
