@@ -29,9 +29,13 @@
       - if provided namespace does not exist, it will be created
     - `-e <enforcement_lib>`
       - optional parameter
-      - valid values - `kyverno` | `gatekeeper`
-      - installs **e**nforcement lib along with policies
-      - **NOTE** - policies will be installed to your cluster, so security test will pass also for clusters which were not safe before
+      - valid values - `kyverno` | `gatekeeper` | `kubewarden`
+      - installs **e**nforcement lib along with policies, to secure the cluster
+    - `-p <pod_security_profile>`
+      - optional parameter
+      - valid values - `privileged` | `baseline` | `restricted`
+      - enforces security **p**rofile from Pod Security Standards
+      - Pod Security Standards - https://kubernetes.io/docs/concepts/security/pod-security-standards/
     - `-d`
       - optional flag
       - **WARNING** - **d**eletes the namespace after test, usefull for new namespaces, may be malicious for existing namespaces
