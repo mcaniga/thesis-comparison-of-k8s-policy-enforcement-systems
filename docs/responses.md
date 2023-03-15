@@ -1,5 +1,5 @@
-# Tool Specification
-- document specifies expected behaviour of the tool with `apply.sh` as entrypoint
+# List of known responses
+- document specifies known and tested responses of the tool with `apply.sh` as entrypoint
 - can be used for manual testing
 
 ## Validation
