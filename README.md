@@ -22,24 +22,20 @@
 - `bash apply.sh -n cluster-security-check`
 
 ## Usage
-- to run the cluster security test, user should execute the `apply.sh` script
-  - `bash apply.sh -n <namespace>`
-    - `-n <namespace>` 
-      - determines in which namespace the test will be executed
-      - if argument is missing, test will run in generated namespace 
-      - if provided namespace does not exist, it will be created
-    - `-e <enforcement_lib>`
-      - optional parameter
-      - valid values - `kyverno` | `gatekeeper` | `kubewarden`
-      - installs **e**nforcement lib along with policies, to secure the cluster
-    - `-p <pod_security_profile>`
-      - optional parameter
-      - valid values - `privileged` | `baseline` | `restricted`
-      - enforces security **p**rofile from Pod Security Standards
-      - Pod Security Standards - https://kubernetes.io/docs/concepts/security/pod-security-standards/
-    - `-d`
-      - optional flag
-      - **WARNING** - **d**eletes the namespace after test, usefull for new namespaces, may be malicious for existing namespaces
+- execute security test
+```
+bash apply.sh -n test
+```
+- enforce Pod Security Standards
+```
+bash apply.sh -n test -p privileged
+```
+- install policies with specified enforcement library
+```
+bash apply.sh -n test -e kyverno
+```
+- documentation regarding parameters can be found in `docs/parameters.md`
+
 - pods defined in `/pods/secure` are considered secure and must pass the policy checks - to ensure that policy is not simply rejecting all pods
 - pods defined in `/pods/vulnerable` are considered insecure and should not pass the policy checks (may with mutating controller, but that is TODO)
 
