@@ -2,6 +2,7 @@
 
 - implementation part of master thesis
 - tool for checking of cluster security through deployment of vulnerable pods
+- tool also provides additional ability to install Kyverno, OPA Gatekeeper and Kubewarden policies and apply Pod Security Profiles, to fix the security problems and enforce relevant security settings - list of relevant security settings is in `docs/policies.md`
 - NOTE: **pod convention** - pod filename must match its `metadata.name` to correctly indentify if pod was applied to cluster
 
 ## Supported Kubernetes versions
@@ -20,7 +21,7 @@
 - `git clone https://github.com/mcaniga/thesis-comparison-of-k8s-policy-enforcement-systems.git`
 - `bash apply.sh -n cluster-security-check`
 
-## Workflow
+## Usage
 - to run the cluster security test, user should execute the `apply.sh` script
   - `bash apply.sh -n <namespace>`
     - `-n <namespace>` 
