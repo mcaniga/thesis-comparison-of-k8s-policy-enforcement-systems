@@ -69,10 +69,10 @@ for filename in *; do
     apply_resource $filename $NAMESPACE
     # Vulnerable pod should not have been accepted
     if pod_exists $NAMESPACE $POD_NAME; then
-      READABLE_NAME=$(extract_readable_name $POD_NAME $NAMESPACE)
-      VULN_REASON=$(extract_vulnerability_reason $POD_NAME $NAMESPACE)
+      READABLE_NAME=$(replace_space_with_underscores $(extract_readable_name $POD_NAME $NAMESPACE))
+      VULN_REASON=$(replace_space_with_underscores $(extract_vulnerability_reason $POD_NAME $NAMESPACE))
       # Add pod name to list of wrongly accepted pods
-      WRONGLY_ACCEPTED+=($READABLE_NAME - $VULN_REASON)
+      WRONGLY_ACCEPTED+=($READABLE_NAME-$VULN_REASON)
       # Delete the vulnerable pod from cluster
       delete_resource $filename $NAMESPACE
     else
@@ -125,7 +125,7 @@ for i in "${SUCCESSFULLY_REJECTED[@]}"; do echo "$i"; done
 echo ""
 
 echo "Wrongly accepted:"
-for i in "${WRONGLY_ACCEPTED[@]}"; do echo "$i"; done
+for i in "${WRONGLY_ACCEPTED[@]}"; do echo "$(replace_space_with_underscores $i)"; done
 echo ""
 
 echo "Wrongly rejected:"

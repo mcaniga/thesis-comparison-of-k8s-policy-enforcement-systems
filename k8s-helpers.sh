@@ -58,7 +58,7 @@ function create_namespace {
 # Uses global variable:
 #   $SC_PROJECT_ROOT - path to the project root
 function extract_readable_name {
-  kubectl get pod $1 -n $2 -o=jsonpath="{.metadata.annotations.readableName}" >> $SC_PROJECT_ROOT/exec.log
+  kubectl get pod $1 -n $2 -o=jsonpath="{.metadata.annotations.readableName}"
 }
 
 # Extracts field from pod annotations
@@ -68,7 +68,21 @@ function extract_readable_name {
 # Uses global variable:
 #   $SC_PROJECT_ROOT - path to the project root
 function extract_vulnerability_reason {
-  kubectl get pod $1 -n $2 -o=jsonpath="{.metadata.annotations.vulnerabilityReason}" >> $SC_PROJECT_ROOT/exec.log
+  kubectl get pod $1 -n $2 -o=jsonpath="{.metadata.annotations.vulnerabilityReason}"
+}
+
+# Replaces space with underscores
+# Accepts positional arguments:
+#   $1 - string
+function replace_space_with_underscores {
+  "${1// /_}"
+}
+
+# Replaces underscores with space
+# Accepts positional arguments:
+#   $1 - string
+function replace_undescores_with_space {
+  "${1//_/ }"
 }
 
 # Changes label of given namespace.
