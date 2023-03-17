@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit if simple command exits (NOT part of 'if', '&&', '||', ...) with a nonzero exit value
-# For now commented out, because sometimes when kubectl ends with error (eg. Kyverno already exists), we want to continue - improve error handling/input validation
+# For now commented out, because sometimes when kubectl ends with error (eg. Kyverno already exists), we want to continue
 # set -e
 
 # Import k8s helper functions
@@ -19,6 +19,9 @@ SUCCESSFULLY_ACCEPTED=()
 SUCCESSFULLY_REJECTED=()
 WRONGLY_ACCEPTED=()
 WRONGLY_REJECTED=()
+
+# TODO: check if yq is installed
+# TODO: check if kubectl is installed
 
 # Parse -n <namespace> argument
 DELETE_NAMESPACE='false'

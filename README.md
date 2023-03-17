@@ -12,7 +12,7 @@
 ## Prerequisites
 - access to Kubernetes cluster and kubectl
 - bash
-- yq 
+- yq
   - https://github.com/mikefarah/yq
 - Helm v3 (tested on v3.6.3)
   - installation - https://helm.sh/docs/intro/install/
