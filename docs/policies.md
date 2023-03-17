@@ -19,5 +19,12 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 
 ## Pod Security Standards 
 - enforced by `-p` parameter
-- supports enforcing of profiles by using built-in Pod Security Admission controller - https://kubernetes.io/docs/concepts/security/pod-security-admission/
-- Pod Security Standards docs - https://kubernetes.io/docs/concepts/security/pod-security-standards/
+
+ | -p argument | Description                                                                |
+ |-------------|----------------------------------------------------------------------------|
+ | restricted  | No policy will be enforced.                                                |
+ | baseline    | Minimally restrictive policy which prevents known privilege escalations.   |
+ | privileged  | Heavily restricted policy, following current Pod hardening best practices. |
+
+- profiles are enforced via built-in Pod Security Admission controller - https://kubernetes.io/docs/concepts/security/pod-security-admission/
+- more information about Pod Security Standards - https://kubernetes.io/docs/concepts/security/pod-security-standards/
