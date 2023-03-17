@@ -15,6 +15,17 @@ This document provides implementation details of the solution.
 6. Application of secure pods into namespace
 7. Final Report
 
+## Application of vulnerable pods into namespace
+- pods defined in `/pods/vulnerable` are considered insecure and should not pass the policy checks
+- NOTE: **pod convention** - pod filename must match its `metadata.name` to correctly indentify if pod was applied to cluster
+
+## Application of secure pods into namespace
+- pods defined in `/pods/secure` are considered secure and must pass the policy checks
+- secure pods contain configuration that matches best practices given by restricted profile from PSS and implemented policies
+- secure pods are mechanism to ensure that namespace is not simply rejecting all pods, and thus wrongly pass the security check
+- NOTE: **pod convention** - pod filename must match its `metadata.name` to correctly indentify if pod was applied to cluster
+
+
 ## Final Report
 
 Metrics listed in final report.
