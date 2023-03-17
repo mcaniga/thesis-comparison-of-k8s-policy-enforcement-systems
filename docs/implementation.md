@@ -33,5 +33,5 @@ Metrics listed in final report.
 - Total number of unsuccessful test scenarios
 - List of successfully accepted pods
 - List of successfully rejected pods
-- List of wrongly accepted pods
+- List of wrongly accepted pods, along with reason of their vulnerability 
 - List of wrongly rejected pods

@@ -20,8 +20,7 @@ SUCCESSFULLY_REJECTED=()
 WRONGLY_ACCEPTED=()
 WRONGLY_REJECTED=()
 
-# TODO: check if yq is installed
-# TODO: check if kubectl is installed
+# TODO: check if kubectl is installed - get version and check return code
 
 # Parse -n <namespace> argument
 DELETE_NAMESPACE='false'
@@ -70,8 +69,10 @@ for filename in *; do
     apply_resource $filename $NAMESPACE
     # Vulnerable pod should not have been accepted
     if pod_exists $NAMESPACE $POD_NAME; then
+      READABLE_NAME=$(extract_readable_name $POD_NAME $NAMESPACE)
+      VULN_REASON=$(extract_vulnerability_reason $POD_NAME $NAMESPACE)
       # Add pod name to list of wrongly accepted pods
-      WRONGLY_ACCEPTED+=($POD_NAME)
+      WRONGLY_ACCEPTED+=($READABLE_NAME - $VULN_REASON)
       # Delete the vulnerable pod from cluster
       delete_resource $filename $NAMESPACE
     else

@@ -10,10 +10,13 @@
 - 1.26
 
 ## Prerequisites
+- TODO: specify necessary k8s privileges
 - access to Kubernetes cluster and kubectl
 - bash
-- yq
-  - https://github.com/mikefarah/yq
+- ability to install pod with `alpine` image from Docker Hub
+
+In addition when using additional ability to install enforcement libraries (`-e`)
+
 - Helm v3 (tested on v3.6.3)
   - installation - https://helm.sh/docs/intro/install/
 

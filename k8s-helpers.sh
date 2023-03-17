@@ -51,6 +51,26 @@ function create_namespace {
   kubectl create namespace $1 >> $SC_PROJECT_ROOT/exec.log
 }
 
+# Extracts field from pod annotations
+# Accepts positional arguments:
+#   $1 - pod name
+#   $2 - namespace
+# Uses global variable:
+#   $SC_PROJECT_ROOT - path to the project root
+function extract_readable_name {
+  kubectl get pod $1 -n $2 -o=jsonpath="{.metadata.annotations.readableName}" >> $SC_PROJECT_ROOT/exec.log
+}
+
+# Extracts field from pod annotations
+# Accepts positional arguments:
+#   $1 - pod name
+#   $2 - namespace
+# Uses global variable:
+#   $SC_PROJECT_ROOT - path to the project root
+function extract_vulnerability_reason {
+  kubectl get pod $1 -n $2 -o=jsonpath="{.metadata.annotations.vulnerabilityReason}" >> $SC_PROJECT_ROOT/exec.log
+}
+
 # Changes label of given namespace.
 # If label already exists, it will be overwritten.
 # Accepts positional arguments:
