@@ -3,7 +3,8 @@
 - implementation part of master thesis
 - tool for checking of cluster security through deployment of vulnerable pods
 - tool also provides additional ability to install Kyverno, OPA Gatekeeper and Kubewarden policies and apply Pod Security Profiles, to fix the security problems and enforce relevant security settings - list of relevant security settings is in `docs/policies.md`
-- NOTE: **pod convention** - pod filename must match its `metadata.name` to correctly indentify if pod was applied to cluster
+
+- for detailed documentation, see `docs/` folder
 
 ## Supported Kubernetes versions
 - 1.26
@@ -39,9 +40,6 @@ bash apply.sh -n test -p privileged
 bash apply.sh -n test -e kyverno
 ```
 - documentation regarding parameters can be found in `docs/parameters.md`
-
-- pods defined in `/pods/secure` are considered secure and must pass the policy checks - to ensure that policy is not simply rejecting all pods
-- pods defined in `/pods/vulnerable` are considered insecure and should not pass the policy checks
 
 ## Examples
 - see `docs/responses.md`
