@@ -68,7 +68,7 @@ for filename in *; do
     POD_NAME=$(extract_podname $filename)
     # Try to apply vulnerable pod to cluster
     apply_resource $filename $NAMESPACE
-    # Check if vulnerable pod was applied to cluster
+    # Vulnerable pod should not have been accepted
     if pod_exists $NAMESPACE $POD_NAME; then
       # Add pod name to list of wrongly accepted pods
       WRONGLY_ACCEPTED+=($POD_NAME)
@@ -89,7 +89,7 @@ for filename in *; do
     POD_NAME=$(extract_podname $filename)
     # Try to apply secure pod to cluster
     apply_resource $filename $NAMESPACE
-    # Check if namespace exists, if not create new
+    # Pod should be accepted
     if pod_exists $NAMESPACE $POD_NAME; then
       # Add pod name to list of successfully accepted pods
       SUCCESSFULLY_ACCEPTED+=($POD_NAME)
