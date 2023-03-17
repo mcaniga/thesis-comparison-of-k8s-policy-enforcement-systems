@@ -2,8 +2,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: without-security-context
+  annotations:
+    readableName: Pod without any security context
+    vulnerabilityReason: It is possible to deploy pod to your cluster without any security settings. Processes running in pod will have root privileges
 spec:
   containers:
     - name: without-security-context
-      image: ubuntu
+      image: alpine
       command: [ "sh", "-c", "sleep 1h" ]
