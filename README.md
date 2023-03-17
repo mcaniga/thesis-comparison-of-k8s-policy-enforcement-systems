@@ -12,6 +12,8 @@
 ## Prerequisites
 - access to Kubernetes cluster and kubectl
 - bash
+- yq 
+  - https://github.com/mikefarah/yq
 - Helm v3 (tested on v3.6.3)
   - installation - https://helm.sh/docs/intro/install/
 
@@ -19,6 +21,7 @@
 - script can be used in existing cluster
 - for testing, run script in  **free KillerCoda Kubernetes 1.26** environment 
   - https://killercoda.com/playgrounds/scenario/kubernetes
+  - all prerequsites are already installed
 
 ## Quick setup
 1. Clone repository
