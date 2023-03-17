@@ -2,20 +2,19 @@
 List of policies that will be enforced in cluster, if enforcement library or profile will be chosen.
 For secure clusters, enforce Pod Security Standards restricted profile with `-p restricted` and provide additional policies not provided by PSS, via Kyverno, Gatekeeper or Kubewarden
 
-## Kyverno
-- enforced by `-e kyverno` parameter
-- enforced policies
-  - read only filesystem
+| Enfocement library | -e argument | Description                                |
+|--------------------|-------------|--------------------------------------------|
+| Kyverno            | kyverno     | Kyverno policies will be installed.        |
+| OPA Gatekeeper     | gatekeeper  | OPA Gatekeeper policies will be installed. |
+| Kubewarden         | kubewarden  | Kubewarden policies will be installed.     |
 
-## OPA Gatekeeper
-- enforced by `-e gatekeeper` parameter
-- enforced policies
-  - read only filesystem
+- policies implemented in this tool for given enforcement library
 
-## Kubewarden
-- enforced by `-e kubewarden` parameter
-- enforced policies
-  - read only filesystem
+| Policy               | kyverno  | gatekeeper | kubewarden |
+|----------------------|----------|------------|------------|
+| Read Only Filesystem | &#x2611; | &#x2611;   | &#x2611;   |
+todo: add policies for rules from thesis
+
 
 ## Pod Security Standards 
 - enforced by `-p` parameter
