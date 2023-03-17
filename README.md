@@ -7,7 +7,6 @@
 
 ## Supported Kubernetes versions
 - 1.26
-- (TODO: will be tested on older versions, divide support to features )
 
 ## Prerequisites
 - access to Kubernetes cluster and kubectl
@@ -42,7 +41,7 @@ bash apply.sh -n test -e kyverno
 - documentation regarding parameters can be found in `docs/parameters.md`
 
 - pods defined in `/pods/secure` are considered secure and must pass the policy checks - to ensure that policy is not simply rejecting all pods
-- pods defined in `/pods/vulnerable` are considered insecure and should not pass the policy checks (may with mutating controller, but that is TODO)
+- pods defined in `/pods/vulnerable` are considered insecure and should not pass the policy checks
 
 ## Examples
 - see `docs/responses.md`
