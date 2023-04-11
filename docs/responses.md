@@ -73,7 +73,7 @@ controlplane $ bash apply.sh -n test
 -------------------------------
 Starting cluster security check
 -------------------------------
-Creating namespace test
+Using existing namespace: 'test'
 
 Applying vulnerable pods...
 
@@ -89,7 +89,10 @@ secure-pod
 Successfully rejected:
 
 Wrongly accepted:
-without-security-context
+0. Name: Pod without any security context. Vulnerability Reason: It is possible to deploy pod to your cluster without any security settings
+
+
+Wrongly rejected:
 ```
 
 ### Cluster security check - new namespace, Kyverno as policy enforcement

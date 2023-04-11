@@ -87,6 +87,14 @@ function replace_undescores_with_space {
   echo "${STR//_/ }"
 }
 
+# Replaces underscores with space
+# Accepts positional arguments:
+#   $1 - string
+function replace_undescores_with_space {
+  local STR="$1"
+  echo "${STR//_/ }"
+}
+
 # Changes label of given namespace.
 # If label already exists, it will be overwritten.
 # Accepts positional arguments:
