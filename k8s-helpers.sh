@@ -75,14 +75,16 @@ function extract_vulnerability_reason {
 # Accepts positional arguments:
 #   $1 - string
 function replace_space_with_underscores {
-  "${1// /_}"
+  local STR="$1"
+  echo "${STR// /_}"
 }
 
 # Replaces underscores with space
 # Accepts positional arguments:
 #   $1 - string
 function replace_undescores_with_space {
-  "${1//_/ }"
+  local STR="$1"
+  echo "${STR//_/ }"
 }
 
 # Changes label of given namespace.
