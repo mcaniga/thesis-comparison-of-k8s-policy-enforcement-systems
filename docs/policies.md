@@ -10,10 +10,36 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 
 - policies implemented in this tool for given enforcement library
 
-| Policy               | kyverno  | gatekeeper | kubewarden |
-|----------------------|----------|------------|------------|
-| Read Only Filesystem | &#x2611; | &#x2611;   | &#x2611;   |
-todo: add policies for rules from thesis
+| Policy               | kyverno  | gatekeeper | kubewarden |  additional text |
+|----------------------|----------|------------|------------|------------------|
+| Root filesystem is readonly | &#x2611; | &#x2611;   | &#x2611;   | |
+| CPU limits are set (TODO: implement) | &#x2611;   | &#x2611;   | Kyverno does not support parametrization |
+| Memory limits are set (TODO: implement) | &#x2611;   | &#x2611;   | Kyverno does not support parametrization |
+| CPU requests are set (TODO: implement) | &#x2611;   | &#x2611;   | Kyverno does not support parametrization |
+| Memory requests are set (TODO: implement) | &#x2611;   | &#x2611;   | Kyverno does not support parametrization |
+| Image can be referenced only with image digest (TODO: implement) | &#x2611;   | &#x2611;   |  |
+| UID under 10000 is forbidden (TODO: implement) | &#x2611;  | &#x2611;   | &#x2611;   |  |
+| Liveness probes are set (TODO: implement) | &#x2611;  | &#x2611;   | &#x2611;   |  |
+| Readiness probes are set (TODO: implement) | &#x2611;  | &#x2611;   | &#x2611;   |  |
+| Images can be referenced only from allowed registries (TODO: implement) | &#x2611; |  | &#x2611;   | &#x2611;   | Kyverno does not support parametrization. Imperative operations with value cannot be done in Kyverno.  |
+| Docker socket cannot be mounted | &#x2611; | |  |  | Present in PSS baseline profile, thus not implemented in other libs |
+| Priviledged containers are disallowed | &#x2611; | |  |  | Present in PSS baseline profile, thus not implemented in other libs |
+
+
+- policies implemented by PSS profiles
+
+| Policy               | Profile  |
+|----------------------|----------|
+| Host path cannot be mounted | baseline |
+| Docker socket cannot be mounted | baseline - HostPath Volumes |
+| Priviledged containers are disallowed | baseline |
+| Sharing of host namespaces is disallowed | baseline |
+| Priviledged escalation is disallowed | restricted |
+| runAsNonRoot is set to true | restricted |
+| Containers cannot set runAsUser to 0 | restricted |
+| Seccomp profile type is either RuntimeDefault or Localhost | restricted |
+| All capabilities are dropped, with exception of NET_BIND_SERVICE | restricted |
+
 
 
 ## Pod Security Standards 
