@@ -6,8 +6,13 @@ This document provides list of not implemented, nice to have features.
 Policies are now cluster wide, enforcing policies also in namespaces that must have loosen restrictions  
 
 **Possible solution**
-- add id to policies metadata
-- omit policies based on parameter ('-o <id>,<id2>' for **o**mit)
+- for Kyverno
+    - create exception for policy enforcement in namespace with PolicyException https://kyverno.io/docs/writing-policies/exceptions/
+- for OPA Gatekeeper
+    - use namespaceSelector in Constraint https://open-policy-agent.github.io/gatekeeper/website/docs/howto/
+- for Kubewarden
+    - use `namespaceSelector` in ClusterAdmissionPolicy
+    - use AdmissionPolicy
 
 ## Omit policies
 Enable omitting policies by policy ID.  

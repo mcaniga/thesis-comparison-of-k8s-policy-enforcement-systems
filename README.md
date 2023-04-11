@@ -39,7 +39,7 @@ bash apply.sh -n test
 ```
 - enforce Pod Security Standards
 ```
-bash apply.sh -n test -p privileged
+bash apply.sh -n test -p restricted
 ```
 - install policies with specified enforcement library
 ```

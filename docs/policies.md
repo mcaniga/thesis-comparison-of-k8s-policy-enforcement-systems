@@ -21,6 +21,7 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 | UID under 10000 is forbidden (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  |
 | Liveness probes are set (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  |
 | Readiness probes are set (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  |
+| Always pull image (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  |
 | Images can be referenced only from allowed registries (TODO: implement, add vulnerable pod) | &#x2611; |  | &#x2611;   | &#x2611;   | Kyverno does not support parametrization. Imperative operations with value cannot be done in Kyverno.  |
 | Docker socket cannot be mounted | &#x2611; | |  |  | Present in PSS baseline profile, thus not implemented in other libs |
 | Priviledged containers are disallowed | &#x2611; | |  |  | Present in PSS baseline profile, thus not implemented in other libs |
