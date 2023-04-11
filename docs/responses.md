@@ -236,21 +236,25 @@ Applying secure pods...
 -------------------------------
 Results
 -------------------------------
-Successfull: 1/2
-Unsuccessfull: 1/2
+Successfull: 1/4
+Unsuccessfull: 3/4
 Successfully accepted:
 secure-pod
 
 Successfully rejected:
 
 Wrongly accepted:
-without-security-context
+0. Name: Pod without allowPrivilegeEscalation field. Vulnerability Reason: Process can obtain higher privileges than parent process 
+
+1. Name: Pod with allowPrivilegeEscalation field set to true. Vulnerability Reason: Process can obtain higher privileges than parent process 
+
+2. Name: Pod without any security context. Vulnerability Reason: It is possible to deploy pod to your cluster without any security settings 
+
 
 Wrongly rejected:
 ```
 
 ### Cluster security check - new namespace, Pod Security Standards - built-in admission controller - baseline profile
-- TODO: check if 'without-security-context' pod should really pass in baseline profile
 - **input**
 ```
 controlplane $ bash apply.sh -n test -p baseline
@@ -270,15 +274,20 @@ Applying secure pods...
 -------------------------------
 Results
 -------------------------------
-Successfull: 1/2
-Unsuccessfull: 1/2
+Successfull: 1/4
+Unsuccessfull: 3/4
 Successfully accepted:
 secure-pod
 
 Successfully rejected:
 
 Wrongly accepted:
-without-security-context
+0. Name: Pod without allowPrivilegeEscalation field. Vulnerability Reason: Process can obtain higher privileges than parent process 
+
+1. Name: Pod with allowPrivilegeEscalation field set to true. Vulnerability Reason: Process can obtain higher privileges than parent process 
+
+2. Name: Pod without any security context. Vulnerability Reason: It is possible to deploy pod to your cluster without any security settings 
+
 
 Wrongly rejected:
 ```
@@ -298,6 +307,10 @@ Creating namespace test
 Applying security profile - 'restricted' to namespace
 
 Applying vulnerable pods...
+Error from server (Forbidden): error when creating "priviledge-escalation-missing.yml": pods "priviledge-escalation-missing" is forbidden: violates PodSecurity "restricted:v1.26": allowPrivilegeEscalation != false (container "secure" must set securityContext.allowPrivilegeEscalation=false)
+No resources found in test namespace.
+Error from server (Forbidden): error when creating "priviledge-escalation-true.yml": pods "priviledge-escalation-true" is forbidden: violates PodSecurity "restricted:v1.26": allowPrivilegeEscalation != false (container "secure" must set securityContext.allowPrivilegeEscalation=false)
+No resources found in test namespace.
 Error from server (Forbidden): error when creating "without-security-context.yml": pods "without-security-context" is forbidden: violates PodSecurity "restricted:v1.26": allowPrivilegeEscalation != false (container "without-security-context" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "without-security-context" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "without-security-context" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "without-security-context" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 No resources found in test namespace.
 
@@ -305,12 +318,14 @@ Applying secure pods...
 -------------------------------
 Results
 -------------------------------
-Successfull: 2/2
-Unsuccessfull: 0/2
+Successfull: 4/4
+Unsuccessfull: 0/4
 Successfully accepted:
 secure-pod
 
 Successfully rejected:
+priviledge-escalation-missing
+priviledge-escalation-true
 without-security-context
 
 Wrongly accepted:

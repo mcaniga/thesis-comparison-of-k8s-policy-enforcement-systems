@@ -33,7 +33,7 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 |----------------------|----------|
 | Host path cannot be mounted (TODO: add vulnerable pod) | baseline |
 | Docker socket cannot be mounted (TODO: add vulnerable pod) | baseline - HostPath Volumes |
-| Priviledged containers are disallowed (TODO: add vulnerable pod) | baseline |
+| Priviledged containers are disallowed | baseline |
 | Sharing of host namespaces is disallowed (TODO: add vulnerable pod) | baseline |
 | Priviledged escalation is disallowed (TODO: add vulnerable pod) | restricted |
 | runAsNonRoot is set to true (TODO: add vulnerable pod) | restricted |
