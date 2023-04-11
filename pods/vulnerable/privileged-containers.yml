@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: privileged-containers
+  annotations:
+    readableName: Pod with privileged field set to true.
+    vulnerabilityReason: Containers run without any isolation from host
+spec:
+  containers:
+    - name: secure
+      image: ubuntu
+      command: [ "sh", "-c", "sleep 1h" ]
+      securityContext:
+        privileged: true
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: true
+        runAsNonRoot: true
+        capabilities:
+          drop:
+            - "ALL"
+        seccompProfile:
+          type: "RuntimeDefault"

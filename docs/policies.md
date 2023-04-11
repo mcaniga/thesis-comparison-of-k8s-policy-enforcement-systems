@@ -35,9 +35,9 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 | Docker socket cannot be mounted (TODO: add vulnerable pod) | baseline - HostPath Volumes |
 | Priviledged containers are disallowed | baseline |
 | Sharing of host namespaces is disallowed (TODO: add vulnerable pod) | baseline |
-| Priviledged escalation is disallowed (TODO: add vulnerable pod) | restricted |
-| runAsNonRoot is set to true (TODO: add vulnerable pod) | restricted |
-| Containers cannot set runAsUser to 0 (TODO: add vulnerable pod) | restricted |
+| Priviledged escalation is disallowed | restricted |
+| runAsNonRoot is set to true | restricted |
+| Containers cannot set runAsUser to 0 | restricted |
 | Seccomp profile type is either RuntimeDefault or Localhost (TODO: add vulnerable pod) | restricted |
 | All capabilities are dropped, with exception of NET_BIND_SERVICE (TODO: add vulnerable pod) | restricted |
 
