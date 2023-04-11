@@ -56,6 +56,7 @@ fi
 # Apply security profile to namespace if profile is specified
 if [ -n "$SECURITY_PROFILE" ]; then
   apply_security_profile $SECURITY_PROFILE $NAMESPACE
+  sleep 5
 fi
 
 # Apply vulnerable pods to cluster
