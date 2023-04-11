@@ -1,7 +1,5 @@
 # Definition of pod illustrating best practices
 # Must pass the policy checks
-# TODO: update the definition to pass restricted profile (`bash apply.sh -n test -p restricted`)
-# TODO: briefly document reason behind security context values
 apiVersion: v1
 kind: Pod
 metadata:

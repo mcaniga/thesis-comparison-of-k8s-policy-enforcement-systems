@@ -284,7 +284,6 @@ Wrongly rejected:
 ```
 
 ### Cluster security check - new namespace, Pod Security Standards - built-in admission controller - restricted profile
-- TODO: secure-pod was 'wrongly' rejected - because secure-pod is not so secure now, update secure-pod definition to pass restricted profile
 - **input**
 ```
 controlplane $ bash apply.sh -n test -p restricted
@@ -295,7 +294,7 @@ controlplane $ bash apply.sh -n test -p restricted
 -------------------------------
 Starting cluster security check
 -------------------------------
-Using existing namespace: 'test'
+Creating namespace test
 Applying security profile - 'restricted' to namespace
 
 Applying vulnerable pods...
@@ -303,14 +302,13 @@ Error from server (Forbidden): error when creating "without-security-context.yml
 No resources found in test namespace.
 
 Applying secure pods...
-Error from server (Forbidden): error when creating "secure-pod.yml": pods "secure-pod" is forbidden: violates PodSecurity "restricted:v1.26": allowPrivilegeEscalation != false (container "secure" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "secure" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "secure" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "secure" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
-No resources found in test namespace.
 -------------------------------
 Results
 -------------------------------
-Successfull: 1/2
-Unsuccessfull: 1/2
+Successfull: 2/2
+Unsuccessfull: 0/2
 Successfully accepted:
+secure-pod
 
 Successfully rejected:
 without-security-context
@@ -318,5 +316,4 @@ without-security-context
 Wrongly accepted:
 
 Wrongly rejected:
-secure-pod
 ```
