@@ -4,7 +4,7 @@ metadata:
   name: privileged-containers
   annotations:
     readableName: Pod with privileged field set to true.
-    vulnerabilityReason: Containers run without any isolation from host. Should be rejected by cluster also without policies, because allowPrivilegeEscalation is set to false
+    vulnerabilityReason: Containers run without any isolation from host.
 spec:
   containers:
     - name: secure
@@ -13,7 +13,6 @@ spec:
       securityContext:
         privileged: true
         readOnlyRootFilesystem: true
-        allowPrivilegeEscalation: false
         runAsNonRoot: true
         capabilities:
           drop:

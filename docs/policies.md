@@ -23,8 +23,6 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 | Readiness probes are set (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  |
 | Always pull image (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  |
 | Images can be referenced only from allowed registries (TODO: implement, add vulnerable pod) | &#x2611; |  | &#x2611;   | &#x2611;   | Kyverno does not support parametrization. Imperative operations with value cannot be done in Kyverno.  |
-| Docker socket cannot be mounted | &#x2611; | |  |  | Present in PSS baseline profile, thus not implemented in other libs |
-| Priviledged containers are disallowed | &#x2611; | |  |  | Present in PSS baseline profile, thus not implemented in other libs |
 
 
 - policies implemented by PSS profiles
@@ -39,7 +37,7 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 | runAsNonRoot is set to true | restricted |
 | Containers cannot set runAsUser to 0 | restricted |
 | Seccomp profile type is either RuntimeDefault or Localhost (TODO: add vulnerable pod) | restricted |
-| All capabilities are dropped, with exception of NET_BIND_SERVICE (TODO: add vulnerable pod) | restricted |
+| All capabilities are dropped, with exception of NET_BIND_SERVICE | restricted |
 
 
 

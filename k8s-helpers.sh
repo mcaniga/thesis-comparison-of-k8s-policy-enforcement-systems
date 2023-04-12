@@ -174,5 +174,5 @@ function apply_security_profile {
 
   echo "Applying security profile - '$1' to namespace"
   change_namespace_label "pod-security.kubernetes.io/enforce=$1" $2
-  change_namespace_label "pod-security.kubernetes.io/enforce-version=v1.26" $2
+  change_namespace_label "pod-security.kubernetes.io/enforce-version=latest" $2
 }
