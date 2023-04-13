@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mount-docker-socket
+  annotations:
+    readableName: Pod with mounted docker socket
+    vulnerabilityReason: Attacker can manipulate with Docker on host from container via socket. Attacket can manipulate with images on host, eg. stop them and cause DoS, or break from container via creation of privileged container.
+spec:
+  containers:
+    - name: secure
+      image: ubuntu
+      command: [ "sh", "-c", "sleep 1h" ]
+      volumeMounts:
+      - mountPath: /dummy
+        name: hostpath-volume
+      securityContext:
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        capabilities:
+          drop:
+            - "ALL"
+          add:
+            - "KILL"
+        seccompProfile:
+          type: "RuntimeDefault"
+  volumes:
+  - name: hostpath-volume
+    hostPath:
+      path: /var/run/docker.sock

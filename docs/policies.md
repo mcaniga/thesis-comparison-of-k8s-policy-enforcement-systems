@@ -29,8 +29,8 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 
 | Policy               | Profile  |
 |----------------------|----------|
-| Host path cannot be mounted (TODO: add vulnerable pod) | baseline |
-| Docker socket cannot be mounted (TODO: add vulnerable pod) | baseline - HostPath Volumes |
+| Host path cannot be mounted | baseline |
+| Docker socket cannot be mounted | baseline - HostPath Volumes |
 | Priviledged containers are disallowed | baseline |
 | Sharing of host namespaces is disallowed (TODO: add vulnerable pod) | baseline |
 | Priviledged escalation is disallowed | restricted |
