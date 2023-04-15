@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: writable-root-filesystem
+  annotations:
+    readableName: Pod with readOnlyRootFilesystem set to false
+    vulnerabilityReason: Container process can manipulate with filesystem, modify and delete important files, eg. configuration 
+spec:
+  containers:
+    - name: writable-root-filesystem-container
+      image: ubuntu
+      command: [ "sh", "-c", "sleep 1h" ]
+      securityContext:
+        readOnlyRootFilesystem: false
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        capabilities:
+          drop:
+            - "ALL"
+        seccompProfile:
+          type: "RuntimeDefault"
