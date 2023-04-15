@@ -6,11 +6,11 @@ metadata:
     readableName: Pod with shared PID namespace
     vulnerabilityReason: Container process has access to host processes and can potentially manipulate with them. 
 spec:
+  hostPID: true
   containers:
     - name: pid-namespace-sharing-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
-      hostPID: true
       securityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false

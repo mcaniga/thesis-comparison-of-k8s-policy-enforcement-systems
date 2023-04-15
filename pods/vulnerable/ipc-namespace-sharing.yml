@@ -6,11 +6,11 @@ metadata:
     readableName: Pod with shared IPC namespace
     vulnerabilityReason: Container process has access to host interprocess comunication resources and can potentially manipulate with them - eg. communicate with host using shared memory
 spec:
+  hostIPC: true
   containers:
     - name: ipc-namespace-sharing-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
-      hostIPC: true
       securityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false

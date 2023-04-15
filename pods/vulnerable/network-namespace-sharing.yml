@@ -6,11 +6,11 @@ metadata:
     readableName: Pod with shared network namespace
     vulnerabilityReason: Container process has access to network namespace of host, which can be abused eg. for network traffic snooping
 spec:
+  hostNetwork: true
   containers:
     - name: network-namespace-sharing-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
-      hostNetwork: true
       securityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
