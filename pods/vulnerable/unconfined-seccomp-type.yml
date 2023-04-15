@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: unconfined-seccomp-type
+  annotations:
+    readableName: Pod without disabled seccomp via Unconfined seccomp type
+    vulnerabilityReason: Seccomp filters configured system calls. Disabling seccomp allows unrestricted access to system calls for container processes.
+spec:
+  containers:
+    - name: unconfined-seccomp-type
+      image: ubuntu
+      command: [ "sh", "-c", "sleep 1h" ]
+      securityContext:
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        capabilities:
+          drop:
+            - "ALL"
+        seccompProfile:
+          type: "Unconfined"

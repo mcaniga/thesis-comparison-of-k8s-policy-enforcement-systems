@@ -38,7 +38,7 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 | Priviledged escalation is disallowed | restricted |
 | runAsNonRoot is set to true | restricted |
 | Containers cannot set runAsUser to 0 | restricted |
-| Seccomp profile type is either RuntimeDefault or Localhost (TODO: add vulnerable pod) | restricted |
+| Disabling seccomp with Unconfined profile type is disallowed | restricted |
 | All capabilities are dropped, with exception of NET_BIND_SERVICE | restricted |
 
 
