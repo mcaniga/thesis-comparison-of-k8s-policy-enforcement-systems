@@ -32,7 +32,9 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 | Host path cannot be mounted | baseline |
 | Docker socket cannot be mounted | baseline - HostPath Volumes |
 | Priviledged containers are disallowed | baseline |
-| Sharing of host namespaces is disallowed (TODO: add vulnerable pod) | baseline |
+| Sharing of PID namespaces is disallowed | baseline |
+| Sharing of IPC namespaces is disallowed | baseline |
+| Sharing of network namespaces is disallowed | baseline |
 | Priviledged escalation is disallowed | restricted |
 | runAsNonRoot is set to true | restricted |
 | Containers cannot set runAsUser to 0 | restricted |

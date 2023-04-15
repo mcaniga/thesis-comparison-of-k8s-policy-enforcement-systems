@@ -7,7 +7,7 @@ metadata:
     vulnerabilityReason: Attacker can manipulate with Docker on host from container via socket. Attacket can manipulate with images on host, eg. stop them and cause DoS, or break from container via creation of privileged container.
 spec:
   containers:
-    - name: secure
+    - name: mount-docker-socket-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
       volumeMounts:

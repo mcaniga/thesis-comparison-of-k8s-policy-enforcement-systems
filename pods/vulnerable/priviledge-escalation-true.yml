@@ -7,7 +7,7 @@ metadata:
     vulnerabilityReason: Process can obtain higher privileges than parent process
 spec:
   containers:
-    - name: secure
+    - name: priviledge-escalation-true-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
       securityContext:

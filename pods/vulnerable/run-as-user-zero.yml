@@ -7,7 +7,7 @@ metadata:
     vulnerabilityReason: Processes will be run under root user
 spec:
   containers:
-    - name: secure
+    - name: run-as-zero-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
       securityContext:

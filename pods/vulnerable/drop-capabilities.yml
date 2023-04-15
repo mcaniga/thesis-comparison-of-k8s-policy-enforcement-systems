@@ -7,7 +7,7 @@ metadata:
     vulnerabilityReason: TODO
 spec:
   containers:
-    - name: secure
+    - name: drop-capabilities-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
       securityContext:

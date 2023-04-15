@@ -7,7 +7,7 @@ metadata:
     vulnerabilityReason: Containers run without any isolation from host.
 spec:
   containers:
-    - name: secure
+    - name: privileged-containers-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
       securityContext:

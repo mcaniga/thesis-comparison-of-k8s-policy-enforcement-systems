@@ -7,7 +7,7 @@ metadata:
     vulnerabilityReason: Host mount exposes files or directories from host filesystem. Attacker can read, modify or delete this information from container (only read if readOnly). Violates all three attributes of CIA triad (only confidentiality if readOnly).
 spec:
   containers:
-    - name: secure
+    - name: mount-host-path-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
       volumeMounts:
