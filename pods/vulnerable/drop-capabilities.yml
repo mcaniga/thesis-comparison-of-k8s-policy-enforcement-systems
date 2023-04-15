@@ -4,7 +4,7 @@ metadata:
   name: drop-capabilities
   annotations:
     readableName: Pod without dropped capabilities
-    vulnerabilityReason: TODO
+    vulnerabilityReason: Compromised container process will have default parts of root permissions (capabilities)
 spec:
   containers:
     - name: drop-capabilities-container
