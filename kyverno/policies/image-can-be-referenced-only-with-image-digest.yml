@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: image-can-be-referenced-only-with-image-digest
+  annotations:
+    policies.kyverno.io/title: Image can be referenced only with image digest
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      This policy validates that the image is referenced with digest.
+      Attacker can poison local registry, compromising image with same tag, thus malicious image can be loaded. 
+      Instead of using tags, images should be referenced by digest. 
+spec:
+  validationFailureAction: enforce
+  background: true
+  rules:
+  - name: image-can-be-referenced-only-with-image-digest-rule
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "Referencing images via tags is not allowed, instead use image digests."
+      pattern:
+        spec:
+          containers:
+          - image: "!*:latest"

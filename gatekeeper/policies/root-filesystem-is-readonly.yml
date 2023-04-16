@@ -1,0 +1,49 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8spspreadonlyrootfilesystem
+  annotations:
+    metadata.gatekeeper.sh/title: Root filesystem is readonly
+    description: >-
+      This policy validates that containers define a securityContext
+      with `readOnlyRootFilesystem: true`. If filesystem is writeable, 
+      container process can manipulate with filesystem, modify and 
+      delete important files - eg. configuration 
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sPSPReadOnlyRootFilesystem
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            This policy validates that containers define a securityContext
+            with `readOnlyRootFilesystem: true`. If filesystem is writeable, 
+            container process can manipulate with filesystem, modify and 
+            delete important files - eg. configuration 
+          properties:
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8spspreadonlyrootfilesystem
+
+        violation[{"msg": msg, "details": {}}] {
+            c := input_containers[_]
+            root_filesystem_is_read_only_violation(c)
+            msg := sprintf("only read-only root filesystem container is allowed: %v", [c.name])
+        }
+
+        root_filesystem_is_read_only_violation(c) {
+            not has_field(c, "securityContext") or c.securityContext.readOnlyRootFilesystem == false
+        }
+
+        input_containers[c] {
+            c := input.review.object.spec.containers[_]
+        }
+
+        # has_field returns whether an object has a field
+        has_field(object, field) = true {
+            object[field]
+        }

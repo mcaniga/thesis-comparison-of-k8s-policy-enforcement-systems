@@ -1,0 +1,30 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: liveness-probes-are-required
+  annotations:
+    policies.kyverno.io/title: Liveness probes are required
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      This policy validates that all containers contain livenessProbe field.
+      Without correct liveness probe, container can be in ill-state and not be restarted.
+spec:
+  validationFailureAction: enforce
+  background: true
+  rules:
+  - name: liveness-probes-are-required-rule
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "Liveness probes are required for all containers."
+      foreach:
+      - list: request.object.spec.containers[]
+        deny:
+          conditions:
+            all:
+            - key: livenessProbe
+              operator: AllNotIn
+              value: "{{ element.keys(@)[] }}"

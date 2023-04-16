@@ -13,14 +13,13 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 | Policy               | kyverno  | gatekeeper | kubewarden |  additional text |
 |----------------------|----------|------------|------------|------------------|
 | Root filesystem is readonly | &#x2611; | &#x2611;   | &#x2611;   | |
-| CPU and memory limits and requests are set (TODO: implement) | &#x2611;   | &#x2611;   | | Kyverno does not support parametrization |
-| Image can be referenced only with image digest (TODO: implement) | &#x2611;   | &#x2611;   | | |
-| Image tag cannot be set to latest or be empty (TODO: implement) | &#x2611;   | &#x2611;   |  | |
-| UID under 10000 is forbidden (TODO: implement) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
-| Liveness probes are set (TODO: implement) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
-| Readiness probes are set (TODO: implement) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
-| Always pull image from remote registry (TODO: implement) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
-| Images can be referenced only from allowed registries (TODO: implement) | &#x2611; | &#x2611;   | &#x2611;   | Kyverno does not support parametrization. Imperative operations with value cannot be done in Kyverno.  |
+| CPU and memory limits and requests are required (TODO: implement - g, kub) | &#x2611;   | &#x2611;   | | |
+| Image can be referenced only with image digest (TODO: implement - g, kub) | &#x2611;   | &#x2611;   | | |
+| UID under 10000 is forbidden (TODO: implement - g, kub) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
+| Liveness probes are required (TODO: implement - g, kub) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
+| Readiness probes are required (TODO: implement - g, kub) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
+| Always pull image from remote registry (TODO: implement - g, kub) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
+| Images can be referenced only from allowed registries (TODO: implement - g, kub) | &#x2611; | &#x2611;   | &#x2611;   | Kyverno does not support parametrization. |
 
 
 - policies implemented by PSS profiles
