@@ -18,7 +18,7 @@ For secure clusters, enforce Pod Security Standards restricted profile with `-p 
 | CPU requests are set (TODO: implement) | &#x2611;   | &#x2611;   | | Kyverno does not support parametrization |
 | Memory requests are set (TODO: implement) | &#x2611;   | &#x2611;   | | Kyverno does not support parametrization |
 | Image can be referenced only with image digest (TODO: implement, add vulnerable pod) | &#x2611;   | &#x2611;   | | |
-| Image tag cannot be set to latest or be empty (TODO: implement, add vulnerable pod) | &#x2611;   | &#x2611;   |  | |
+| Image tag cannot be set to latest or be empty (TODO: implement) | &#x2611;   | &#x2611;   |  | |
 | UID under 10000 is forbidden (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
 | Liveness probes are set (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
 | Readiness probes are set (TODO: implement, add vulnerable pod) | &#x2611;  | &#x2611;   | &#x2611;   |  | |
