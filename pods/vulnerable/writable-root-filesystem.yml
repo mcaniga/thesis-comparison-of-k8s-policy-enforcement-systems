@@ -33,6 +33,7 @@ spec:
       securityContext:
         readOnlyRootFilesystem: false
         allowPrivilegeEscalation: false
+        runAsUser: 10000
         runAsNonRoot: true
         capabilities:
           drop:
