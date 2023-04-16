@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: run-as-user-zero
+  name: run-as-user-1000
   annotations:
-    readableName: Pod with runAsUser field set to zero.
-    vulnerabilityReason: Processes will be run under root user
+    readableName: Pod with runAsUser field set to 1000.
+    vulnerabilityReason: UID of container user can clash with user on host machine, and reference priviledged user.
 spec:
   containers:
-    - name: run-as-user-zero-container
+    - name: run-as-user-1000-container
       image: alpine@sha256:b6ca290b6b4cdcca5b3db3ffa338ee0285c11744b4a6abaa9627746ee3291d8d # alpine 3.17.3
       imagePullPolicy: Always
       command: [ "sh", "-c", "sleep 1h" ]      
@@ -33,7 +33,7 @@ spec:
       securityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
-        runAsUser: 0
+        runAsUser: 1000
         runAsNonRoot: true
         capabilities:
           drop:
