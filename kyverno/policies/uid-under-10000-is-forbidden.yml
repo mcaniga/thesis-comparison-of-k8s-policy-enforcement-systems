@@ -23,5 +23,5 @@ spec:
       pattern:
         spec:
           containers:
-            securityContext:
-              runAsUser: ">=10000"
+            - securityContext:
+                runAsUser: ">=10000"

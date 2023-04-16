@@ -22,7 +22,7 @@ spec:
     validate:
       message: >-
                 The imagePullPolicy must be set to `Always`
-      pattern:
-        spec:
-          containers:
-            imagePullPolicy: "Always"
+      foreach:
+      - list: "request.object.spec.containers"
+        pattern:
+          imagePullPolicy: "Always"
