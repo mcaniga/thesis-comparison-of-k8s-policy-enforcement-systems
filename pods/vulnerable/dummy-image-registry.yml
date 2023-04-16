@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: image-pull-policy-never
+  name: dummy-image-registry
   annotations:
-    readableName: Container has imagePullPolicy set to Never
-    vulnerabilityReason: Attacker can poison local registry, thus malicious image will be loaded.
+    readableName: Container with dummy image registry
+    vulnerabilityReason: Image registry is unrestricted, higher risk of malicious images. Pull images only from registries you can trust.
 spec:
   containers:
-    - name: image-pull-policy-never-container
-      image: alpine@sha256:b6ca290b6b4cdcca5b3db3ffa338ee0285c11744b4a6abaa9627746ee3291d8d # alpine 3.17.3
-      imagePullPolicy: Never
+    - name: dummy-image-registry-container
+      image: dummyRegistry:alpine@sha256:b6ca290b6b4cdcca5b3db3ffa338ee0285c11744b4a6abaa9627746ee3291d8d # alpine 3.17.3
+      imagePullPolicy: Always
       command: [ "sh", "-c", "sleep 1h" ]
       resources:
         # minimum requirements for node resources, these resources will be reserved for pod lifetime

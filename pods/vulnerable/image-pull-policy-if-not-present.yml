@@ -7,7 +7,7 @@ metadata:
     vulnerabilityReason: Attacker can poison local registry, thus malicious image will be loaded.
 spec:
   containers:
-    - name: cpu-limits-are-not-set-container
+    - name: image-pull-policy-if-not-present-container
       image: alpine@sha256:b6ca290b6b4cdcca5b3db3ffa338ee0285c11744b4a6abaa9627746ee3291d8d # alpine 3.17.3
       imagePullPolicy: IfNotPresent
       command: [ "sh", "-c", "sleep 1h" ]
@@ -19,6 +19,7 @@ spec:
         # maximum resources that will node allocate for this container, these resources will not reserved for pod lifetime
         limits:
           memory: "8000M" # in megabytes
+          cpu: "8" # in CPU cores
       securityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
