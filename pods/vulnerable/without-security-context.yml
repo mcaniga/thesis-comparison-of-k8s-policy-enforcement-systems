@@ -9,4 +9,14 @@ spec:
   containers:
     - name: without-security-context-container
       image: alpine
-      command: [ "sh", "-c", "sleep 1h" ]
+      command: [ "sh", "-c", "sleep 1h" ]      
+      readinessProbe:
+        tcpSocket:
+          port: 8080
+        initialDelaySeconds: 5
+        periodSeconds: 10
+      livenessProbe:
+        tcpSocket:
+          port: 8080
+        initialDelaySeconds: 15
+        periodSeconds: 20
