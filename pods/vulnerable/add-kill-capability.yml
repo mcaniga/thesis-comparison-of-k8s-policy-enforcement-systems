@@ -4,7 +4,7 @@ metadata:
   name: add-kill-capability
   annotations:
     readableName: Pod without dropped capabilities, but added kill capability
-    vulnerabilityReason: Container process can kill other processes. 
+    vulnerabilityReason: Container process can kill other processes. If KILL capability can be added, there is a risk that other capabilities can be added too.
 spec:
   containers:
     - name: add-kill-capability-container
