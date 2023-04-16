@@ -3,8 +3,8 @@ kind: Pod
 metadata:
   name: without-security-context
   annotations:
-    readableName: Pod without any security context.
-    vulnerabilityReason: It is possible to deploy pod to your cluster without any security settings
+    readableName: Pod without any security context or security settings.
+    vulnerabilityReason: It is possible to deploy pod to your cluster without any security settings or security settings
 spec:
   containers:
     - name: without-security-context-container

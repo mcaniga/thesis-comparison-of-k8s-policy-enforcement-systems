@@ -1,19 +1,18 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: run-as-zero
+  name: memory-requests-are-not-set
   annotations:
-    readableName: Pod with runAsUser field set to zero.
-    vulnerabilityReason: Processes will be run under root user
+    readableName: Container without set memory requests
+    vulnerabilityReason: If memory requests are not set, other misbehaving container can cause resource starvation for this pod.
 spec:
   containers:
-    - name: run-as-zero-container
+    - name: memory-requests-are-not-set-container
       image: ubuntu
       command: [ "sh", "-c", "sleep 1h" ]
       resources:
         # minimum requirements for node resources, these resources will be reserved for pod lifetime
         requests:
-          memory: "200M" # in megabytes
           cpu: "0.1" # in CPU cores
         # maximum resources that will node allocate for this container, these resources will not reserved for pod lifetime
         limits:
@@ -22,7 +21,6 @@ spec:
       securityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
-        runAsUser: 0
         runAsNonRoot: true
         capabilities:
           drop:
