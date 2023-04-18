@@ -1,0 +1,33 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: uid-under-10000-is-forbidden
+  annotations:
+    metadata.gatekeeper.sh/title: Root filesystem is readonly
+    description: >-
+      This policy validates that all containers have set memory and CPU requests and limits.
+      If runAsUser is set to too low UID, container user can clash with user on host machine, and reference priviledged user.
+spec:
+  crd:
+    spec:
+      names:
+        kind: UidUnder10000IsForbidden
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            This policy validates that all containers have set memory and CPU requests and limits.
+            If runAsUser is set to too low UID, container user can clash with user on host machine, and reference priviledged user.
+          properties:
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package uid-under-10000-is-forbidden
+
+        violation[{"msg": msg, "details": {}}] {
+            container := input.review.object.spec.containers[_]
+            run_as_user := container.securityContext.runAsUser
+            not run_as_user
+            run_as_user < 10000
+        }

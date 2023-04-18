@@ -1,0 +1,35 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: always-pull-image-from-remote-registry
+  annotations:
+    metadata.gatekeeper.sh/title: Always pull image from remote registry
+    description: >-
+      This policy validates the imagePullPolicy is set to `Always`.
+      With `Always`, image is pulled from remote registry if local registry does not contain image with matching digest.
+      Pulling from remote registry is prefered from security standpoint, local registry can be easier compromised in most cases.
+spec:
+  crd:
+    spec:
+      names:
+        kind: AlwaysPullImageFromRemoteRegistry
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            This policy validates the imagePullPolicy is set to `Always`.
+            With `Always`, image is pulled from remote registry if local registry does not contain image with matching digest.
+            Pulling from remote registry is prefered from security standpoint, local registry can be easier compromised in most cases.
+          properties:
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package always-pull-image-from-remote-registry
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          satisfied := [re_match("@[a-z0-9]+([+._-][a-z0-9]+)*:[a-zA-Z0-9=_-]+", container.image)]
+          not all(satisfied)
+          msg := sprintf("container <%v> uses an image without a digest <%v>", [container.name, container.image])
+        }

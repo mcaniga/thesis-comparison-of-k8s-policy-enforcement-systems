@@ -1,0 +1,42 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: limits-and-requests-are-required
+  annotations:
+    metadata.gatekeeper.sh/title: Limits and requests are required
+    description: >-
+      This policy validates that all containers have set memory and CPU requests and limits.
+      Resource requests prevents resource starvation of the pod, if other pods on node are misbehaving.
+      Resource limits specifies maximum quantity of resources that can be aquired by given container, defending other pods from resource starvation.
+      Only presence of settings is checked, can be set to arbitrary value.
+spec:
+  crd:
+    spec:
+      names:
+        kind: LimitsAndRequestsAreRequired
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            This policy validates that all containers have set memory and CPU requests and limits.
+            Resource requests prevents resource starvation of the pod, if other pods on node are misbehaving.
+            Resource limits specifies maximum quantity of resources that can be aquired by given container, defending other pods from resource starvation.
+            Only presence of settings is checked, can be set to arbitrary value.
+          properties:
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package limits-and-requests-are-required
+
+        violation[{"msg": msg, "details": {}}] {
+            container := input.review.object.spec.containers[_]
+            memory_limit := container.resources.limits.memory
+            memory_request := container.resources.requests.memory
+            cpu_limit := container.resources.limits.cpu
+            cpu_request := container.resources.requests.cpu
+            not memory_limit
+            not memory_request
+            not cpu_limit
+            not cpu_request
+        }

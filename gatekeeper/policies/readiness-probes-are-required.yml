@@ -1,0 +1,32 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: readiness-probes-are-required
+  annotations:
+    metadata.gatekeeper.sh/title: Readiness probes are required
+    description: >-
+      This policy validates that all containers contain readinessProbe field.
+      Without readiness probe, traffic will be sent to pod that is just inicializing, causing undesirable behaviour.
+spec:
+  crd:
+    spec:
+      names:
+        kind: ReadinessProbesAreRequired
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            This policy validates that all containers contain readinessProbe field.
+            Without readiness probe, traffic will be sent to pod that is just inicializing, causing undesirable behaviour.
+          properties:
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package readiness-probes-are-required
+
+        violation[{"msg": msg, "details": {}}] {
+            container := input.review.object.spec.containers[_]
+            readinessProbe := container.readinessProbe
+            not readinessProbe
+        }

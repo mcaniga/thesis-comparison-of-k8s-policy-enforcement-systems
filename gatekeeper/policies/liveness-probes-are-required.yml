@@ -1,0 +1,32 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: liveness-probes-are-required
+  annotations:
+    metadata.gatekeeper.sh/title: Liveness probes are required
+    description: >-
+      This policy validates that all containers contain livenessProbe field.
+      Without correct liveness probe, container can be in ill-state and not be restarted.
+spec:
+  crd:
+    spec:
+      names:
+        kind: LivenessProbesAreRequired
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            This policy validates that all containers contain livenessProbe field.
+            Without correct liveness probe, container can be in ill-state and not be restarted.
+          properties:
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package liveness-probes-are-required
+
+        violation[{"msg": msg, "details": {}}] {
+            container := input.review.object.spec.containers[_]
+            livenessProbe := container.livenessProbe
+            not livenessProbe
+        }

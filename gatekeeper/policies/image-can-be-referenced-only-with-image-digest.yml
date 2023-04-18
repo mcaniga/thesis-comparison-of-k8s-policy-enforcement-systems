@@ -1,0 +1,47 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: image-can-be-referenced-only-with-image-digest
+  annotations:
+    metadata.gatekeeper.sh/title: Image can be referenced only with image digest
+    description: >-
+      This policy validates that the image is referenced with digest.
+      Attacker can poison local registry, compromising image with same tag, thus malicious image can be loaded. 
+      Instead of using tags, images should be referenced by digest. 
+spec:
+  crd:
+    spec:
+      names:
+        kind: ImageCanBeReferencedOnlyWithImageDigest
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            This policy validates that the image is referenced with digest.
+            Attacker can poison local registry, compromising image with same tag, thus malicious image can be loaded. 
+            Instead of using tags, images should be referenced by digest. 
+          properties:
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package image-can-be-referenced-only-with-image-digest
+
+        violation[{"msg": msg, "details": {}}] {
+            c := input_containers[_]
+            root_filesystem_is_read_only_violation(c)
+            msg := sprintf("only read-only root filesystem container is allowed: %v", [c.name])
+        }
+
+        root_filesystem_is_read_only_violation(c) {
+            not has_field(c, "securityContext") or c.securityContext.readOnlyRootFilesystem == false
+        }
+
+        input_containers[c] {
+            c := input.review.object.spec.containers[_]
+        }
+
+        # has_field returns whether an object has a field
+        has_field(object, field) = true {
+            object[field]
+        }
