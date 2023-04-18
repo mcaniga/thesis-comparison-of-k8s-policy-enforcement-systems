@@ -1,0 +1,38 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: images-can-be-referenced-only-from-allowed-registries
+  annotations:
+    metadata.gatekeeper.sh/title: Image can be referenced only from allowed registries
+    description: >-
+      This policy validates that the image is referenced with digest.
+      Images from untrusted sources present higher risk of malicious images.
+spec:
+  crd:
+    spec:
+      names:
+        kind: ImagesCanBeReferencedOnlyFromAllowedRegistries
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            This policy validates that the image is referenced with digest.
+            Images from untrusted sources present higher risk of malicious images.
+          properties:
+            repos:
+              description: The list of allowed repositories
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package images-can-be-referenced-only-from-allowed-registries
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          satisfied := [good | repo = input.parameters.repos[_] ; good = startswith(container.image, repo)]
+          not any(satisfied)
+          msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
+        }
