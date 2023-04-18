@@ -26,8 +26,8 @@ spec:
         requests:
           cpu: "0.1" # in CPU cores
         # maximum resources that will node allocate for this container, these resources will not reserved for pod lifetime
+        # memory limit was also deleted, because requests will default to limits when not provided
         limits:
-          memory: "8000M" # in megabytes
           cpu: "8" # in CPU cores
       securityContext:
         readOnlyRootFilesystem: true
