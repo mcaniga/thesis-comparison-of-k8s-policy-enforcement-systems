@@ -1,4 +1,4 @@
-package image-can-be-referenced-only-with-image-digest
+package imageCanBeReferencedOnlyWithImageDigest
 
 violation[{"msg": msg, "details": {}}] {
     c := input_containers[_]

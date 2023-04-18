@@ -1,4 +1,4 @@
-package always-pull-image-from-remote-registry
+package alwaysPullImageFromRemoteRegistry
 
 violation[{"msg": msg}] {
   container := input.review.object.spec.containers[_]

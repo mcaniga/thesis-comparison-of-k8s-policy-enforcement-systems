@@ -1,4 +1,4 @@
-package images-can-be-referenced-only-from-allowed-registries
+package imagesCanBeReferencedOnlyFromAllowedRegistries
 
 violation[{"msg": msg}] {
   container := input.review.object.spec.containers[_]

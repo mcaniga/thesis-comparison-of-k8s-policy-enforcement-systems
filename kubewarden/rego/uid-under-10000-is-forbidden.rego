@@ -1,4 +1,4 @@
-package uid-under-10000-is-forbidden
+package uidUnder10000IsForbidden
 
 violation[{"msg": msg, "details": {}}] {
     container := input.review.object.spec.containers[_]

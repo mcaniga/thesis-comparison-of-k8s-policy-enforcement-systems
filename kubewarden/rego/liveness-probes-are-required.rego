@@ -1,4 +1,4 @@
-package liveness-probes-are-required
+package livenessProbesAreRequired
 
 violation[{"msg": msg, "details": {}}] {
     container := input.review.object.spec.containers[_]

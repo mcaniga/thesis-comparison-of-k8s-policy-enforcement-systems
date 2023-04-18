@@ -1,4 +1,4 @@
-package limits-and-requests-are-required
+package limitsAndRequestsAreRequired
 
 violation[{"msg": msg, "details": {}}] {
     container := input.review.object.spec.containers[_]

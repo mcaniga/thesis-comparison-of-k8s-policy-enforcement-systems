@@ -1,4 +1,4 @@
-package readiness-probes-are-required
+package readinessProbesAreRequired
 
 violation[{"msg": msg, "details": {}}] {
     container := input.review.object.spec.containers[_]
