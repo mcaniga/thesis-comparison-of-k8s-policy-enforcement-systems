@@ -12,13 +12,17 @@ spec:
       imagePullPolicy: Never
       command: [ "sh", "-c", "sleep 1h" ]      
       readinessProbe:
-        tcpSocket:
-          port: 8080
+        exec:
+          command:
+          - echo
+          - ready
         initialDelaySeconds: 5
         periodSeconds: 10
       livenessProbe:
-        tcpSocket:
-          port: 8080
+        exec:
+          command:
+          - echo
+          - ready
         initialDelaySeconds: 15
         periodSeconds: 20
       resources:
