@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: always-pull-image-from-remote-registry
+  name: alwayspullimagefromremoteregistry
   annotations:
     metadata.gatekeeper.sh/title: Always pull image from remote registry
     description: >-

@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: ImageCanBeReferencedOnlyWithImageDigest
 metadata:
-  name: image-can-be-referenced-only-with-image-digest
+  name: imagecanbereferencedonlywithimagedigest
 spec:
   match:
     kinds:

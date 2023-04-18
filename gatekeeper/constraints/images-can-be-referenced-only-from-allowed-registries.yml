@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: ImagesCanBeReferencedOnlyFromAllowedRegistries
 metadata:
-  name: images-can-be-referenced-only-from-allowed-registries
+  name: imagescanbereferencedonlyfromallowedregistries
 spec:
   match:
     kinds:

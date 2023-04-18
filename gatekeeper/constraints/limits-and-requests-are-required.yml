@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: LimitsAndRequestsAreRequired
 metadata:
-  name: limits-and-requests-are-required
+  name: limitsandrequestsarerequired
 spec:
   match:
     kinds:

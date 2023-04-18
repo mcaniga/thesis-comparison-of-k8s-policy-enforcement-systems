@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: readiness-probes-are-required
+  name: readinessprobesarerequired
   annotations:
     metadata.gatekeeper.sh/title: Readiness probes are required
     description: >-

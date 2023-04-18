@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: uid-under-10000-is-forbidden
+  name: uidunder10000isforbidden
   annotations:
     metadata.gatekeeper.sh/title: Root filesystem is readonly
     description: >-

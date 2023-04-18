@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: limits-and-requests-are-required
+  name: limitsandrequestsarerequired
   annotations:
     metadata.gatekeeper.sh/title: Limits and requests are required
     description: >-

@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: RootFilesystemIsReadOnly
 metadata:
-  name: root-filesystem-is-readonly-constraint
+  name: rootfilesystemisreadonly
 spec:
   match:
     kinds:

@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: LivenessProbesAreRequired
 metadata:
-  name: liveness-probes-are-required
+  name: livenessprobesarerequired
 spec:
   match:
     kinds:

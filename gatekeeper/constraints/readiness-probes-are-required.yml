@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: ReadinessProbesAreRequired
 metadata:
-  name: readiness-probes-are-required
+  name: readinessprobesarerequired
 spec:
   match:
     kinds:

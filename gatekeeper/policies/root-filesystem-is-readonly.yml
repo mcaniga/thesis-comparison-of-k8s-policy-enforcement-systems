@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: root-filesystem-is-readonly
+  name: rootfilesystemisreadonly
   annotations:
     metadata.gatekeeper.sh/title: Root filesystem is readonly
     description: >-
@@ -27,23 +27,11 @@ spec:
   targets:
     - target: admission.k8s.gatekeeper.sh
       rego: |
-        package root-filesystem-is-readonly
+        package rootFilesystemIsReadOnly
 
         violation[{"msg": msg, "details": {}}] {
-            c := input_containers[_]
-            root_filesystem_is_read_only_violation(c)
+            container := input.review.object.spec.containers[_]
+            not container.securityContext
+            container.securityContext.readOnlyRootFilesystem == false
             msg := sprintf("only read-only root filesystem container is allowed: %v", [c.name])
-        }
-
-        root_filesystem_is_read_only_violation(c) {
-            not has_field(c, "securityContext") or c.securityContext.readOnlyRootFilesystem == false
-        }
-
-        input_containers[c] {
-            c := input.review.object.spec.containers[_]
-        }
-
-        # has_field returns whether an object has a field
-        has_field(object, field) = true {
-            object[field]
         }

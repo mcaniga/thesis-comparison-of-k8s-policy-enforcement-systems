@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: images-can-be-referenced-only-from-allowed-registries
+  name: imagescanbereferencedonlyfromallowedregistries
   annotations:
     metadata.gatekeeper.sh/title: Image can be referenced only from allowed registries
     description: >-

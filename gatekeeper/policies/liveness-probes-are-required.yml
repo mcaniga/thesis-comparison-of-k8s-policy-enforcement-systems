@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: liveness-probes-are-required
+  name: livenessprobesarerequired
   annotations:
     metadata.gatekeeper.sh/title: Liveness probes are required
     description: >-

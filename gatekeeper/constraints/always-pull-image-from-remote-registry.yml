@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: AlwaysPullImageFromRemoteRegistry
 metadata:
-  name: always-pull-image-from-remote-registry-constraint
+  name: alwayspullimagefromremoteregistry
 spec:
   match:
     kinds:
