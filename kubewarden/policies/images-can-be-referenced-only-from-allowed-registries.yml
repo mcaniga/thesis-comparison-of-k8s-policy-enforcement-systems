@@ -1,0 +1,14 @@
+apiVersion: policies.kubewarden.io/v1
+kind: ClusterAdmissionPolicy
+metadata:
+  name: images-can-be-referenced-only-from-allowed-registries
+spec:
+  module: file://../wasm/images-can-be-referenced-only-from-allowed-registries.wasm
+  rules:
+    - apiGroups: [""]
+      apiVersions: ["v1"]
+      resources: ["pods"]
+      operations:
+        - CREATE
+        - UPDATE
+  mutating: false

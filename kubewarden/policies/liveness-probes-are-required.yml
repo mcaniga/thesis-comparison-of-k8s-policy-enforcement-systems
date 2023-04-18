@@ -1,0 +1,14 @@
+apiVersion: policies.kubewarden.io/v1
+kind: ClusterAdmissionPolicy
+metadata:
+  name: liveness-probes-are-required
+spec:
+  module: file://../wasm/liveness-probes-are-required.wasm
+  rules:
+    - apiGroups: [""]
+      apiVersions: ["v1"]
+      resources: ["pods"]
+      operations:
+        - CREATE
+        - UPDATE
+  mutating: false
