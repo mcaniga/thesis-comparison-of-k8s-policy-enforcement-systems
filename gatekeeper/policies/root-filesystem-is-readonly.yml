@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
-  name: k8spspreadonlyrootfilesystem
+  name: root-filesystem-is-readonly
   annotations:
     metadata.gatekeeper.sh/title: Root filesystem is readonly
     description: >-
@@ -13,7 +13,7 @@ spec:
   crd:
     spec:
       names:
-        kind: K8sPSPReadOnlyRootFilesystem
+        kind: RootFilesystemIsReadOnly
       validation:
         # Schema for the `parameters` field
         openAPIV3Schema:
@@ -27,7 +27,7 @@ spec:
   targets:
     - target: admission.k8s.gatekeeper.sh
       rego: |
-        package k8spspreadonlyrootfilesystem
+        package root-filesystem-is-readonly
 
         violation[{"msg": msg, "details": {}}] {
             c := input_containers[_]

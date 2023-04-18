@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: K8sPSPReadOnlyRootFilesystem
+kind: RootFilesystemIsReadOnly
 metadata:
-  name: psp-readonlyrootfilesystem
+  name: root-filesystem-is-readonly-constraint
 spec:
   match:
     kinds:
