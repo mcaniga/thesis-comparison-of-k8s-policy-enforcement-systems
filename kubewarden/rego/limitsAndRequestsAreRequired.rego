@@ -10,4 +10,5 @@ violation[{"msg": msg, "details": {}}] {
     not memory_request
     not cpu_limit
     not cpu_request
+    msg := sprintf("check if container <%v> has specified memory and cpu limits and requests", [container.name])
 }
