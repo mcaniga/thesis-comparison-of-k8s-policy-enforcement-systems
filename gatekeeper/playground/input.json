@@ -1,0 +1,22 @@
+{
+    "review": {
+        "object": {
+            "spec": {
+                "containers": [
+                    {
+                        "resources": {
+                            "requests": {
+                                "memory": "200M",
+                                "cpu": "0.1"
+                            },
+                            "limits": {
+                                "memory": "8000M",
+                                "cpu": "8"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
