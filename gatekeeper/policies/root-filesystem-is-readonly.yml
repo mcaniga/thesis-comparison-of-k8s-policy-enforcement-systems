@@ -31,7 +31,14 @@ spec:
 
         violation[{"msg": msg, "details": {}}] {
             container := input.review.object.spec.containers[_]
-            not container.securityContext
+            not container["securityContext"]
+            container.securityContext.readOnlyRootFilesystem == false
+            msg := sprintf("only read-only root filesystem container is allowed: %v", [container.name])
+        }
+
+        violation[{"msg": msg, "details": {}}] {
+            container := input.review.object.spec.containers[_]
+            not container["securityContext"]
             container.securityContext.readOnlyRootFilesystem == false
             msg := sprintf("only read-only root filesystem container is allowed: %v", [container.name])
         }
