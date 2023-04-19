@@ -1,8 +1,13 @@
 package alwaysPullImageFromRemoteRegistry
 
+violation[{"msg": msg, "details": {}}] {
+    container := input.review.object.spec.containers[_]
+    not container.imagePullPolicy["imagePullPolicy"]
+    msg := sprintf("container <%v> has not set imagePullPolicy to Always", [container.name])
+}
+
 violation[{"msg": msg}] {
   container := input.review.object.spec.containers[_]
-  satisfied := [re_match("@[a-z0-9]+([+._-][a-z0-9]+)*:[a-zA-Z0-9=_-]+", container.image)]
-  not all(satisfied)
-  msg := sprintf("container <%v> uses an image without a digest <%v>", [container.name, container.image])
+  container.imagePullPolicy != "Always"
+  msg := sprintf("container <%v> has not set imagePullPolicy to Always", [container.name])
 }
