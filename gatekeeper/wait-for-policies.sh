@@ -26,11 +26,9 @@ function apply_parametric_constraints {
       constraint_name=$(basename $constraint_path)
       policy_settings="$constraint_path/$constraint_name.yml"
       # make specific values.yml override from input params for given constraint
-      echo "henlo"
-      cat $policy_settings
-      yq eval ".["$constraint_name"]" $SETTINGS_PATH > $policy_settings
+      nameenv=$constraint_name yq eval '.[env(nameenv)]' $SETTINGS_PATH > $policy_settings
       # install helm release for parametric policy with specified parameters
-      helm install $constraint_name . -f $policy_settings -n $NAMESPACE
+      helm install $constraint_name $constraint_path -f $policy_settings -n $NAMESPACE
     done
     # Wait for constraints to be applied
     sleep 5
