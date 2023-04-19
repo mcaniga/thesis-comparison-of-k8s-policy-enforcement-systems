@@ -4,6 +4,7 @@
 # Uses global variable:
 #   $SC_PROJECT_ROOT - path to the project root
 function apply_non_parametric_constraints {
+    echo "Applying non parametric constraints"
     # Wait for constraint templates to be applied
     sleep 2
     for constraint in "$SC_PROJECT_ROOT"/gatekeeper/constraints/*; do
@@ -11,6 +12,7 @@ function apply_non_parametric_constraints {
     done
     # Wait for constraints to be applied
     sleep 2
+    echo "Non parametric constraints applied"
 }
 
 # Applies gatekeeper constraints with parameters.
@@ -19,6 +21,7 @@ function apply_non_parametric_constraints {
 #   $NAMESPACE - namespace
 #   $SETTINGS_PATH - path from project root to parameters yaml
 function apply_parametric_constraints {
+    echo "Applying parametric constraints"
     PREV_DIR=$(pwd)
     for constraint in "$SC_PROJECT_ROOT"/gatekeeper/constraints-charts/*; do
       cd "$SC_PROJECT_ROOT/gatekeeper/constraints-charts/$constraint"
@@ -30,6 +33,7 @@ function apply_parametric_constraints {
     # Wait for constraints to be applied
     sleep 5
     cd $PREV_DIR
+    echo "Parametric constraints applied"
 }
 
 # Applies gatekeeper constraints.
