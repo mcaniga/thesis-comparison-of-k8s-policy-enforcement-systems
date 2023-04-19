@@ -2,13 +2,24 @@ package limitsAndRequestsAreRequired
 
 violation[{"msg": msg, "details": {}}] {
     container := input.review.object.spec.containers[_]
-    memory_limit := container.resources.limits.memory
-    memory_request := container.resources.requests.memory
-    cpu_limit := container.resources.limits.cpu
-    cpu_request := container.resources.requests.cpu
-    not memory_limit
-    not memory_request
-    not cpu_limit
-    not cpu_request
-    msg := sprintf("check if container <%v> has specified memory and cpu limits and requests", [container.name])
+    not container.resources.requests["memory"]
+    msg := sprintf("container <%v> has not specified memory requests", [container.name])
+}
+
+violation[{"msg": msg, "details": {}}] {
+    container := input.review.object.spec.containers[_]
+    not container.resources.requests["cpu"]
+    msg := sprintf("container <%v> has not specified cpu requests", [container.name])
+}
+
+violation[{"msg": msg, "details": {}}] {
+    container := input.review.object.spec.containers[_]
+    not container.resources.limits["memory"]
+    msg := sprintf("container <%v> has not specified memory limits", [container.name])
+}
+
+violation[{"msg": msg, "details": {}}] {
+    container := input.review.object.spec.containers[_]
+    not container.resources.limits["cpu"]
+    msg := sprintf("container <%v> has not specified cpu limits", [container.name])
 }

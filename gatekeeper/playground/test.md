@@ -9,7 +9,7 @@ package play
 
 violation {
     container := input.review.object.spec.containers[_]
-	print("input[_].Contents:", container)
+	print("container:", container)
 }
 
 ```
