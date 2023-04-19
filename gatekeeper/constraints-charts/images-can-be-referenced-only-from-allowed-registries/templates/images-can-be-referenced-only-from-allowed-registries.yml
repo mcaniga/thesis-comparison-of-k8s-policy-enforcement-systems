@@ -1,0 +1,11 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: ImagesCanBeReferencedOnlyFromAllowedRegistries
+metadata:
+  name: imagescanbereferencedonlyfromallowedregistries
+  parameters:
+    repos: {{ .Values.repos }}
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
