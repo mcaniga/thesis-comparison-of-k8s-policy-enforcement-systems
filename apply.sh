@@ -24,12 +24,13 @@ WRONGLY_REJECTED=()
 
 # Parse -n <namespace> argument
 DELETE_NAMESPACE='false'
-while getopts n:e:p:d flag
+while getopts n:e:p:s:d flag
 do
     case "${flag}" in
         n) NAMESPACE=${OPTARG};;
         e) ENFORCEMENT_LIB=${OPTARG};;
         p) SECURITY_PROFILE=${OPTARG};;
+        s) SETTINGS_PATH=${OPTARG};;
         d) DELETE_NAMESPACE='true';;
     esac
 done
@@ -39,6 +40,9 @@ if [ -z $NAMESPACE ]; then
         echo 'Namespace (-n) is required' >&2
         exit 1
 fi
+
+export NAMESPACE=$NAMESPACE
+export SETTINGS_PATH=$SETTINGS_PATH
 
 # Check if namespace exists, if not create new
 if namespace_exists $NAMESPACE; then

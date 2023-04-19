@@ -1,7 +1,10 @@
+# TODO: specify allowed registries from parameters - add parameters to library when using -e
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: ImagesCanBeReferencedOnlyFromAllowedRegistries
 metadata:
   name: imagescanbereferencedonlyfromallowedregistries
+  parameters:
+    repos: {{ .repos }}
 spec:
   match:
     kinds:
