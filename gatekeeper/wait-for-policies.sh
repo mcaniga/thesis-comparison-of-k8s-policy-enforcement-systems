@@ -7,8 +7,8 @@ function apply_non_parametric_constraints {
     echo "Applying non parametric constraints"
     # Wait for constraint templates to be applied
     sleep 2
-    for constraint in "$SC_PROJECT_ROOT"/gatekeeper/constraints/*; do
-      kubectl apply -f $constraint >> $SC_PROJECT_ROOT/exec.log
+    for constraint_path in "$SC_PROJECT_ROOT"/gatekeeper/constraints/*; do
+      kubectl apply -f $constraint_path >> $SC_PROJECT_ROOT/exec.log
     done
     # Wait for constraints to be applied
     sleep 2
@@ -22,17 +22,18 @@ function apply_non_parametric_constraints {
 #   $SETTINGS_PATH - path from project root to parameters yaml
 function apply_parametric_constraints {
     echo "Applying parametric constraints"
-    PREV_DIR=$(pwd)
-    for constraint in "$SC_PROJECT_ROOT"/gatekeeper/constraints-charts/*; do
-      cd "$SC_PROJECT_ROOT/gatekeeper/constraints-charts/$constraint"
+    for constraint_path in "$SC_PROJECT_ROOT"/gatekeeper/constraints-charts/*; do
+      constraint_name=$(basename $constraint_path)
+      policy_settings="$constraint_path/$constraint_name.yml"
       # make specific values.yml override from input params for given constraint
-      yq eval ".["$constraint"]" $1 > $constraint.yml
+      echo "henlo"
+      cat $policy_settings
+      yq eval ".["$constraint_name"]" $SETTINGS_PATH > $policy_settings
       # install helm release for parametric policy with specified parameters
-      helm install $constraint . -f $constraint.yml -n $NAMESPACE
+      helm install $constraint_name . -f $policy_settings -n $NAMESPACE
     done
     # Wait for constraints to be applied
     sleep 5
-    cd $PREV_DIR
     echo "Parametric constraints applied"
 }
 
