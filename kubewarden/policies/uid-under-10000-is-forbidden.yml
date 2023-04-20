@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: uid-under-10000-is-forbidden
 spec:
-  module: file://../wasm/uid-under-10000-is-forbidden.wasm
+  module: <<file>>
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

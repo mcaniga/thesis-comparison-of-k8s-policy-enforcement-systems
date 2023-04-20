@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: limits-and-requests-are-required
 spec:
-  module: file://../wasm/limits-and-requests-are-required.wasm
+  module: <<file>>
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

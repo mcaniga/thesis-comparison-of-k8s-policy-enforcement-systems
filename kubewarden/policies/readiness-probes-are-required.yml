@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: readiness-probes-are-required
 spec:
-  module: file://../wasm/readiness-probes-are-required.wasm
+  module: <<file>>
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

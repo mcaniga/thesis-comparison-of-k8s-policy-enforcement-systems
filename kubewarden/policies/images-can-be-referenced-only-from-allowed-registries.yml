@@ -4,7 +4,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: images-can-be-referenced-only-from-allowed-registries
 spec:
-  module: file://../wasm/images-can-be-referenced-only-from-allowed-registries.wasm
+  module: <<file>>
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

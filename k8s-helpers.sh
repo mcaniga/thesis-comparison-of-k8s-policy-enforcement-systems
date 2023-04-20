@@ -152,6 +152,9 @@ function install_enforcement_lib {
   # Install enforcement library
   bash ./$1/install.sh
 
+  # Preprocess policies if needed before applying
+  bash ./$1/policy-preprocesing.sh
+
   # Install associated policies
   for policy in ./$1/policies/*; do
       apply_resource $policy $2
