@@ -1,7 +1,6 @@
 package imageCanBeReferencedOnlyWithImageDigest
 
 violation[{"msg": msg}] {
-    not any(satisfied)
     container := input.review.object.spec.containers[_]
     images_parts := [x | x := split(container.image, "/")]
     images_parts_without_reg := [x | x := images_parts[_]; count(x) == 0]

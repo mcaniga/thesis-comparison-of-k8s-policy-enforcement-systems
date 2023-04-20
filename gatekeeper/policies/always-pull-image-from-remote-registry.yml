@@ -29,11 +29,11 @@ spec:
 
         violation[{"msg": msg, "details": {}}] {
             container := input.review.object.spec.containers[_]
-            not container.imagePullPolicy["imagePullPolicy"]
+            not container["imagePullPolicy"]
             msg := sprintf("container <%v> has not set imagePullPolicy to Always", [container.name])
         }
 
-        violation[{"msg": msg}] {
+        violation[{"msg": msg, "details": {}}] {
           container := input.review.object.spec.containers[_]
           container.imagePullPolicy != "Always"
           msg := sprintf("container <%v> has not set imagePullPolicy to Always", [container.name])
