@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: uid-under-10000-is-forbidden
 spec:
-  module: <<file>>
+  module: file:///<<file>>
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

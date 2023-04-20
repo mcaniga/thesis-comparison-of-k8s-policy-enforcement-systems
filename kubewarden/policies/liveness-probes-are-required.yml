@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: liveness-probes-are-required
 spec:
-  module: <<file>>
+  module: file:///<<file>>
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]
