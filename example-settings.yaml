@@ -1,4 +1,4 @@
 # Settings for "Images can be referenced only from allowed registries" policy, see more in "policies.md"
 images-can-be-referenced-only-from-allowed-registries:
   # List of allowed repositories
-  repos: ["", "bitnami"]
+  repos: ["", "harbor-trusted-org.local/", "harbor-partially-trusted-org.local/trusted_repo/"]
