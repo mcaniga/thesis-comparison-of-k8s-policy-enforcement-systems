@@ -5,8 +5,8 @@ metadata:
   annotations:
     metadata.gatekeeper.sh/title: Image can be referenced only from allowed registries
     description: >-
-      This policy validates that the image is referenced with digest.
-      Images from untrusted sources present higher risk of malicious images.
+      Pulling images from untrusted sources leads in higher risk of malicious images. 
+      Pull images only from registries you can trust.
 spec:
   crd:
     spec:
@@ -17,8 +17,8 @@ spec:
         openAPIV3Schema:
           type: object
           description: >-
-            This policy validates that the image is referenced with digest.
-            Images from untrusted sources present higher risk of malicious images.
+            Pulling images from untrusted sources leads in higher risk of malicious images. 
+            Pull images only from registries you can trust.
           properties:
             repos:
               description: The list of allowed repositories
