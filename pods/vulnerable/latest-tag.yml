@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
     - name: latest-tag-container
-      image: alpine:latest
+      image: <<alpineImageEmptyTag>>:latest
       imagePullPolicy: Always
       command: [ "sh", "-c", "sleep 1h" ]      
       readinessProbe:

@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
     - name: image-tag-container
-      image: alpine:3.17
+      image: <<alpineImageTagReferenced>>
       imagePullPolicy: Always
       command: [ "sh", "-c", "sleep 1h" ]      
       readinessProbe:

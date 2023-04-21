@@ -63,6 +63,9 @@ if [ -n "$SECURITY_PROFILE" ]; then
   sleep 5
 fi
 
+# Preprocess pods
+bash "$SC_PROJECT_ROOT"/pod_preprocessing.sh
+
 # Apply vulnerable pods to cluster
 echo ""
 echo "Applying vulnerable pods..."

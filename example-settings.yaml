@@ -2,3 +2,21 @@
 images-can-be-referenced-only-from-allowed-registries:
   # List of allowed repositories
   repos: ["", "harbor-trusted-org.local/", "harbor-partially-trusted-org.local/trusted_repo/"]
+
+# Specifies alpine image with its repository and sha256 hash for security test
+# Organizations that dont trust public registries and have "outside world" blocked
+# should set this setting to their trusted repository that contains alpine image
+# Valid image is not necessary for security test, but can be useful for exec into risky pod for educational purposes
+alpineImage: "alpine@sha256:b6ca290b6b4cdcca5b3db3ffa338ee0285c11744b4a6abaa9627746ee3291d8d"
+
+# Specifies alpine image with its repository without tag for security test
+# Organizations that dont trust public registries and have "outside world" blocked
+# should set this setting to their trusted repository that contains alpine image
+# Valid image is not necessary for security test, but can be useful for exec into risky pod for educational purposes
+alpineImageEmptyTag: "alpine"
+
+# Specifies alpine image with its repository and tag for security test
+# Organizations that dont trust public registries and have "outside world" blocked
+# should set this setting to their trusted repository that contains alpine image
+# Valid image is not necessary for security test, but can be useful for exec into risky pod for educational purposes
+alpineImageTagReferenced: "alpine:3.17"
