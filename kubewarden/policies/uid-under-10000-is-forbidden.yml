@@ -12,5 +12,3 @@ spec:
         - CREATE
         - UPDATE
   mutating: false
-  contextAware: false
-  executionMode: gatekeeper
