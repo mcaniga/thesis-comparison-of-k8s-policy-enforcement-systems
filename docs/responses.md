@@ -476,14 +476,97 @@ Safe pods rejected:
 
 ### Cluster security check - new namespace, Kubewarden as policy enforcement
 - **input**
-- TODO: add output
 ```
 controlplane $ bash apply.sh -n test -e kubewarden -s ./example-settings.yaml
 ```
 
 - **output**
 ```
+-------------------------------
+Starting cluster security check
+-------------------------------
+Creating namespace test
+Installing kubewarden (crds - 1.2.3, controller 1.4.0, defaults 1.5.1)...
+Waiting for cert manager...
+Waiting for crds...
+Waiting for controller...
+Waiting for defaults...
+Waiting for policies to be ready
 
+Applying vulnerable pods...
+Error from server: error when creating "without-security-context.yml": admission webhook "clusterwide-read-only-filesystem-policy.kubewarden.admission" denied the request: One of the containers does not have readOnlyRootFilesystem enabled
+Error from server: error when creating "writable-root-filesystem.yml": admission webhook "clusterwide-read-only-filesystem-policy.kubewarden.admission" denied the request: One of the containers does not have readOnlyRootFilesystem enabled
+
+Applying secure pods...
+-------------------------------
+Results
+-------------------------------
+Successfull: 3/30
+Unsuccessfull: 27/30
+Safe pods accepted:
+secure-pod
+
+Risky pods rejected:
+without-security-context
+writable-root-filesystem
+
+Risky pods accepted:
+0. Description: Pod without dropped capabilities, but added kill capability ||| Risk Reason: Container process can kill other processes. If KILL capability can be added, there is a risk that other capabilities can be added too. 
+
+1. Description: Container without set CPU limits ||| Risk Reason: Container can consume all of host CPU cores, and cause resource starvation for other pods. 
+
+2. Description: Container without set CPU requests ||| Risk Reason: If CPU requests are not set, other misbehaving pod can cause resource starvation for this pod. 
+
+3. Description: Pod without dropped capabilities ||| Risk Reason: Compromised container process will have default parts of root permissions (capabilities) 
+
+4. Description: Container with dummy image registry ||| Risk Reason: Image registry is unrestricted, higher risk of malicious images. Pull images only from registries you can trust. 
+
+5. Description: Container with empty tag ||| Risk Reason: Pod can run new version of image on restarts. The version can be malicious or with breaking changes. Same as usage of latest tag. 
+
+6. Description: Container has imagePullPolicy set to IfNotPresent ||| Risk Reason: Attacker can poison local registry, thus malicious image will be loaded. 
+
+7. Description: Container has imagePullPolicy set to Never ||| Risk Reason: Attacker can poison local registry, thus malicious image will be loaded. 
+
+8. Description: Container with image referenced by tag ||| Risk Reason: Attacker can poison local registry, thus malicious image will be loaded. Instead, reference image by digest. 
+
+9. Description: Pod with shared IPC namespace ||| Risk Reason: Container process has access to host interprocess comunication resources and can potentially manipulate with them - eg. communicate with host using shared memory 
+
+10. Description: Container with latest tag ||| Risk Reason: Pod can run new version of image on restarts. The version can be malicious or with breaking changes. 
+
+11. Description: Container has not set liveness probe ||| Risk Reason: Without correct liveness probe, container can be in ill-state and not be restarted. 
+
+12. Description: Container without set memory limits ||| Risk Reason: Container can consume all of host memory, and cause resource starvation for other pods. 
+
+13. Description: Container without set memory requests ||| Risk Reason: If memory requests are not set, other misbehaving container can cause resource starvation for this pod. 
+
+14. Description: Pod with mounted docker socket ||| Risk Reason: Attacker can manipulate with Docker on host from container via socket. Attacket can manipulate with images on host, eg. stop them and cause DoS, or break from container via creation of privileged container. 
+
+15. Description: Pod with host mount ||| Risk Reason: Host mount exposes files or directories from host filesystem. Attacker can read, modify or delete this information from container (only read if readOnly). Violates all three attributes of CIA triad (only confidentiality if readOnly). 
+
+16. Description: Pod with shared network namespace ||| Risk Reason: Container process has access to network namespace of host, which can be abused eg. for network traffic snooping 
+
+17. Description: Pod with shared PID namespace ||| Risk Reason: Container process has access to host processes and can potentially manipulate with them. 
+
+18. Description: Pod without allowPrivilegeEscalation field. ||| Risk Reason: Process can obtain higher privileges than parent process 
+
+19. Description: Pod with allowPrivilegeEscalation field set to true. ||| Risk Reason: Process can obtain higher privileges than parent process 
+
+20. Description: Pod with privileged field set to true. ||| Risk Reason: Containers run without any isolation from host. 
+
+21. Description: Container has not set readiness probe ||| Risk Reason: Without readiness probe, traffic will be sent to pod that is just inicializing, causing undesirable behaviour. 
+
+22. Description: Pod with runAsNonRoot field set to false. ||| Risk Reason: Processes will be run under root user 
+
+23. Description: Pod without runAsNonRoot field. ||| Risk Reason: Processes will be run under root user 
+
+24. Description: Pod with runAsUser field set to 1000. ||| Risk Reason: UID of container user can clash with user on host machine, and reference priviledged user. 
+
+25. Description: Pod with runAsUser field set to zero. ||| Risk Reason: Processes will be run under root user 
+
+26. Description: Pod without disabled seccomp via Unconfined seccomp type ||| Risk Reason: Seccomp filters configured system calls. Disabling seccomp allows unrestricted access to system calls for container processes. 
+
+
+Safe pods rejected:
 ```
 
 ### Cluster security check - new namespace, Pod Security Standards - built-in admission controller - privileged profile
