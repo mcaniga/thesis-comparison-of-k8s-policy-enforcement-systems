@@ -1,0 +1,23 @@
+rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+    operations:
+      - CREATE
+      - UPDATE
+mutating: false
+contextAware: false
+executionMode: gatekeeper
+annotations:
+  io.kubewarden.policy.title: limits-and-requests-are-required
+  io.kubewarden.policy.description: >-
+    This policy validates that all containers have set memory and CPU requests and limits.
+    Resource requests prevents resource starvation of the pod, if other pods on node are misbehaving.
+    Resource limits specifies maximum quantity of resources that can be aquired by given container, defending other pods from resource starvation.
+    Only presence of settings is checked, can be set to arbitrary value.
+  io.kubewarden.policy.author: Michal Caniga
+  io.kubewarden.policy.license: Apache-2.0
+  io.kubewarden.policy.usage: |
+      This policy is just an example.
+
+      You can write interesting descriptions about the policy here.

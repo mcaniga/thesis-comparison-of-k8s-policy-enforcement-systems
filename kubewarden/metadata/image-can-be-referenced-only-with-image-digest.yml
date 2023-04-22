@@ -1,0 +1,22 @@
+rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+    operations:
+      - CREATE
+      - UPDATE
+mutating: false
+contextAware: false
+executionMode: gatekeeper
+annotations:
+  io.kubewarden.policy.title: image-can-be-referenced-only-with-image-digest
+  io.kubewarden.policy.description: >-
+    This policy validates that the image is referenced with digest.
+    Attacker can poison local registry, compromising image with same tag, thus malicious image can be loaded. 
+    Instead of using tags, images should be referenced by digest. 
+  io.kubewarden.policy.author: Michal Caniga
+  io.kubewarden.policy.license: Apache-2.0
+  io.kubewarden.policy.usage: |
+      This policy is just an example.
+
+      You can write interesting descriptions about the policy here.

@@ -1,0 +1,21 @@
+rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+    operations:
+      - CREATE
+      - UPDATE
+mutating: false
+contextAware: false
+executionMode: gatekeeper
+annotations:
+  io.kubewarden.policy.title: images-can-be-referenced-only-from-allowed-registries
+  io.kubewarden.policy.description: >-
+    Pulling images from untrusted sources leads in higher risk of malicious images. 
+    Pull images only from registries you can trust.
+  io.kubewarden.policy.author: Michal Caniga
+  io.kubewarden.policy.license: Apache-2.0
+  io.kubewarden.policy.usage: |
+      This policy is just an example.
+
+      You can write interesting descriptions about the policy here.

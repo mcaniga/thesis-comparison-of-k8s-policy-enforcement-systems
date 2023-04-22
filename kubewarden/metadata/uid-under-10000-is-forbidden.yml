@@ -1,0 +1,21 @@
+rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+    operations:
+      - CREATE
+      - UPDATE
+mutating: false
+contextAware: false
+executionMode: gatekeeper
+annotations:
+  io.kubewarden.policy.title: uid-under-10000-is-forbidden
+  io.kubewarden.policy.description: >-
+    This policy validates that all containers have set memory and CPU requests and limits.
+    If runAsUser is set to too low UID, container user can clash with user on host machine, and reference priviledged user.
+  io.kubewarden.policy.author: Michal Caniga
+  io.kubewarden.policy.license: Apache-2.0
+  io.kubewarden.policy.usage: |
+      This policy is just an example.
+
+      You can write interesting descriptions about the policy here.

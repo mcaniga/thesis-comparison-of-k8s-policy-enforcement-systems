@@ -1,0 +1,21 @@
+rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+    operations:
+      - CREATE
+      - UPDATE
+mutating: false
+contextAware: false
+executionMode: gatekeeper
+annotations:
+  io.kubewarden.policy.title: liveness-probes-are-required
+  io.kubewarden.policy.description: >-
+    This policy validates that all containers contain livenessProbe field.
+    Without correct liveness probe, container can be in ill-state and not be restarted.
+  io.kubewarden.policy.author: Michal Caniga
+  io.kubewarden.policy.license: Apache-2.0
+  io.kubewarden.policy.usage: |
+      This policy is just an example.
+
+      You can write interesting descriptions about the policy here.

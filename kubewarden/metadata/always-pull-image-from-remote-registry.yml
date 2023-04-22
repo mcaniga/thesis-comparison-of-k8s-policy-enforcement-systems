@@ -1,0 +1,22 @@
+rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+    operations:
+      - CREATE
+      - UPDATE
+mutating: false
+contextAware: false
+executionMode: gatekeeper
+annotations:
+  io.kubewarden.policy.title: always-pull-image-from-remote-registry
+  io.kubewarden.policy.description: >-
+    This policy validates the imagePullPolicy is set to `Always`.
+    With `Always`, image is pulled from remote registry if local registry does not contain image with matching digest.
+    Pulling from remote registry is prefered from security standpoint, local registry can be easier compromised in most cases.
+  io.kubewarden.policy.author: Michal Caniga
+  io.kubewarden.policy.license: Apache-2.0
+  io.kubewarden.policy.usage: |
+      This policy is just an example.
+
+      You can write interesting descriptions about the policy here.
