@@ -18,6 +18,8 @@ spec:
       - resources:
           kinds:
           - Pod
+          namespaces:
+          - <<namespace>>
     validate:
       message: "Liveness probes are required for all containers."
       foreach:

@@ -19,6 +19,8 @@ spec:
       - resources:
           kinds:
           - Pod
+          namespaces:
+          - <<namespace>>
     validate:
       message: >-
                 The imagePullPolicy must be set to `Always`

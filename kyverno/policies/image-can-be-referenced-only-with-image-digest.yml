@@ -19,6 +19,8 @@ spec:
       - resources:
           kinds:
           - Pod
+          namespaces:
+          - <<namespace>>
     validate:
       message: "Referencing images via tags is not allowed, instead use image digests."
       pattern:

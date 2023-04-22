@@ -12,16 +12,17 @@ spec:
   validationFailureAction: enforce
   background: true
   rules:
-  - name: uid-under-10000-is-forbidden-rule
-    match:
-      any:
-      - resources:
+    - name: uid-under-10000-is-forbidden-rule
+      match:
+        resources:
           kinds:
-          - Pod
-    validate:
-      message: "UID in runAsUser must be at least 10000."
-      pattern:
-        spec:
-          containers:
-            - securityContext:
-                runAsUser: ">=10000"
+            - Pod
+          namespaces:
+          - <<namespace>>
+      validate:
+        message: "UID in runAsUser must be at least 10000."
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  runAsUser: ">=10000"
