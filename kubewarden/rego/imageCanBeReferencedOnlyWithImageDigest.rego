@@ -1,6 +1,6 @@
 package imageCanBeReferencedOnlyWithImageDigest
 
-violation[{"msg": msg}] {
+violation {
     container := input.review.object.spec.containers[_]
     images_parts := [x | x := split(container.image, "/")]
     images_parts_without_reg := [x | x := images_parts[_]; count(x) == 0]
@@ -11,11 +11,9 @@ violation[{"msg": msg}] {
     
     image_is_without_reg
     default_not_allowed
-
-    msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
 }
 
-violation[{"msg": msg}] {
+violation {
     container := input.review.object.spec.containers[_]
     images_parts := [x | x := split(container.image, "/")]
     images_parts_with_reg := [x | x := images_parts[_]; count(x) > 1]
@@ -29,6 +27,4 @@ violation[{"msg": msg}] {
     
     image_is_with_reg
     no_registry_matches  
-
-    msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
 }
