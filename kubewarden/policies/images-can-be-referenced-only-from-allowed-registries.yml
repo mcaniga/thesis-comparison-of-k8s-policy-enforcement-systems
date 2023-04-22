@@ -4,7 +4,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: images-can-be-referenced-only-from-allowed-registries
 spec:
-  module: file:///<<file>>
+  module: registry://<<ociRegistry>>/images-can-be-referenced-only-from-allowed-registries:0.0.1
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

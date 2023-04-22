@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: limits-and-requests-are-required
 spec:
-  module: file:///<<file>>
+  module: registry://<<ociRegistry>>/limits-and-requests-are-required:0.0.1
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: always-pull-image-from-remote-registry
 spec:
-  module: file:///<<file>>
+  module: registry://<<ociRegistry>>/always-pull-image-from-remote-registry:0.0.2
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

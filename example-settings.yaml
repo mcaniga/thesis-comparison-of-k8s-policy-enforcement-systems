@@ -20,3 +20,6 @@ alpineImageEmptyTag: "alpine"
 # should set this setting to their trusted repository that contains alpine image
 # Valid image is not necessary for security test, but can be useful for exec into risky pod for educational purposes
 alpineImageTagReferenced: "alpine:3.17"
+
+# OCI registry for pulling kubewarden policies
+ociRegistry: "ghcr.io/mcaniga"

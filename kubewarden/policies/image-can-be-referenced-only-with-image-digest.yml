@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: image-can-be-referenced-only-with-image-digest
 spec:
-  module: file:///<<file>>
+  module: registry://<<ociRegistry>>/image-can-be-referenced-only-with-image-digest:0.0.1
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]

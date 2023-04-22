@@ -3,7 +3,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: uid-under-10000-is-forbidden
 spec:
-  module: file:///<<file>>
+  module: registry://<<ociRegistry>>/uid-under10000is-forbidden:0.0.1
   rules:
     - apiGroups: [""]
       apiVersions: ["v1"]
