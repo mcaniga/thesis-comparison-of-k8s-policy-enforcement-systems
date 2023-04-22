@@ -3,7 +3,6 @@
 source k8s-helpers.sh
 
 # Install OPA Gatekeeper 3.11
-# TODO: use helm?
 
 function install_gatekeeper {
   kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.11/deploy/gatekeeper.yaml >> $SC_PROJECT_ROOT/exec.log

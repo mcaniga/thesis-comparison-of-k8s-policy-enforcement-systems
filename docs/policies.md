@@ -1,5 +1,5 @@
 # Policies
-List of policies that will be enforced in cluster, if enforcement library or profile will be chosen.
+List of policies that will be enforced in specified namespace (-n parameter), if enforcement library or profile will be chosen.
 For secure clusters, enforce Pod Security Standards restricted profile with `-p restricted` and provide additional policies not provided by PSS, via Kyverno, Gatekeeper or Kubewarden
 
 | Enfocement library | -e argument | Description                                |

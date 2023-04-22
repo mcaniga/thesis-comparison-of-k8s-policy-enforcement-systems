@@ -8,7 +8,6 @@ source k8s-helpers.sh
 function install_kubewarden {
   echo "Installing kubewarden (crds - 1.2.3, controller 1.4.0, defaults 1.5.1)..."
   # Install cert manager - prerequisite of kubewarden
-  # TODO: specify exact version instead of latest
   kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml >> $SC_PROJECT_ROOT/exec.log
   echo "Waiting for cert manager..."
   kubectl wait --for=condition=Available deployment --timeout=2m -n cert-manager --all >> $SC_PROJECT_ROOT/exec.log

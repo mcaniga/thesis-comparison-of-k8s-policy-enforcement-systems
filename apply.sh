@@ -20,8 +20,6 @@ SUCCESSFULLY_REJECTED=()
 WRONGLY_ACCEPTED=()
 WRONGLY_REJECTED=()
 
-# TODO: check if kubectl is installed - get version and check return code
-
 # Parse -n <namespace> argument
 DELETE_NAMESPACE='false'
 while getopts n:e:p:s:d flag

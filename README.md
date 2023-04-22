@@ -10,7 +10,6 @@
 - 1.26
 
 ## Prerequisites
-- TODO: specify necessary k8s privileges
 - access to Kubernetes cluster and kubectl
 - bash
 - ability to install pod with `alpine` image from Docker Hub
