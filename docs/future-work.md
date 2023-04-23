@@ -2,18 +2,6 @@
 
 This document provides list of not implemented, nice to have features.
 
-## Namespaced policies
-Policies are now cluster wide, enforcing policies also in namespaces that must have loosen restrictions  
-
-**Possible solution**
-- for Kyverno
-    - create exception for policy enforcement in namespace with PolicyException https://kyverno.io/docs/writing-policies/exceptions/
-- for OPA Gatekeeper
-    - use namespaceSelector in Constraint https://open-policy-agent.github.io/gatekeeper/website/docs/howto/
-- for Kubewarden
-    - use `namespaceSelector` in ClusterAdmissionPolicy
-    - use AdmissionPolicy
-
 ## Omit policies
 Enable omitting policies by policy ID.  
 Ensure that omitting multiple policies is possible.  
@@ -30,14 +18,6 @@ Leave -p parameter untouched.
     - implement all policies gradually by hand and use -o parameter to omit them
 - solution 2
     - use community PSS package for Kyverno, OPA Gatekeeper and Kubewarden with omitting functionality
-
-## Use specified image registry in security test
-Security test now uses Docker Hub as image registry for fetching **alpine** image for vulnerable and secure pods.
-Not all enviroments will have Docker Hub enabled, organizations can use custom registries in secure enviroments.
-
-**Possible solution**
-- parametrize register in image field in pod manifest
-- Helm can be used for pod manifest parametrization
 
 ## Support multiple Kubernetes versions
 Now only Kubernetes 1.26 is supported.  
