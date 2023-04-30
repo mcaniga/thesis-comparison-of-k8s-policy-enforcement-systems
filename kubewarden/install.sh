@@ -6,9 +6,9 @@ source k8s-helpers.sh
 # Available chart versions: https://github.com/kubewarden/helm-charts/releases
 
 function install_kubewarden {
-  echo "Installing kubewarden (crds - 1.3.0, controller 1.5.0, defaults 1.6.0)..."
+  echo "Installing kubewarden (cert-manager - 1.11.1, crds - 1.3.0, controller 1.5.0, defaults 1.6.0)..."
   # Install cert manager - prerequisite of kubewarden
-  kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml >> $SC_PROJECT_ROOT/exec.log
+  kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.11.1/cert-manager.yaml >> $SC_PROJECT_ROOT/exec.log
   echo "Waiting for cert manager..."
   kubectl wait --for=condition=Available deployment --timeout=2m -n cert-manager --all >> $SC_PROJECT_ROOT/exec.log
   # Install kubewarden
