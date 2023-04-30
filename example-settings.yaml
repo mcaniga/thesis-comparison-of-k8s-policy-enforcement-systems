@@ -23,3 +23,19 @@ alpineImageTagReferenced: "alpine:3.17"
 
 # OCI registry for pulling kubewarden policies
 ociRegistry: "ghcr.io/mcaniga"
+
+# Specifies version of PSS that will be enforced using PSAC
+pssVersion: v1.26
+
+# Specifies version of Kyverno
+kyvernoVersion: release-1.7
+
+# Specifies version of OPA Gatekeeper
+gatekeeperVersion: release-3.11
+
+# Specifies versions of Kubewarden components
+kubewarden:
+  certManager: v1.11.1
+  crds: 1.3.0 
+  controller: 1.5.0
+  defaults: 1.6.0

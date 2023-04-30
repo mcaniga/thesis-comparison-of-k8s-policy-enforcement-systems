@@ -2,11 +2,12 @@
 
 source k8s-helpers.sh
 
-# Install OPA Gatekeeper 3.11
+# Install OPA Gatekeeper
 
 function install_gatekeeper {
-  kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.11/deploy/gatekeeper.yaml >> $SC_PROJECT_ROOT/exec.log
-  echo "Installing gatekeeper..."
+  gatekeeper_version=$(yq eval '.gatekeeperVersion' $SETTINGS_PATH)
+  kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/$gatekeeper_version/deploy/gatekeeper.yaml >> $SC_PROJECT_ROOT/exec.log
+  echo "Installing OPA Gatekeeper - $gatekeeper_version ..."
   wait_until_pods_ready "gatekeeper-system"
 }
 

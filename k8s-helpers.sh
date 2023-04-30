@@ -175,7 +175,8 @@ function apply_security_profile {
     exit 1
   fi
 
-  echo "Applying security profile - '$1' to namespace"
+  pss_version=$(yq eval '.kubewarden.pssVersion' $SETTINGS_PATH)
+  echo "Applying security profile - '$1' to namespace with enforce-version - $pss_version"
   change_namespace_label "pod-security.kubernetes.io/enforce=$1" $2
-  change_namespace_label "pod-security.kubernetes.io/enforce-version=v1.26" $2
+  change_namespace_label "pod-security.kubernetes.io/enforce-version=$pss_version" $2
 }
