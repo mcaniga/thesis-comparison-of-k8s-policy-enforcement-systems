@@ -163,9 +163,9 @@ controlplane $ bash apply.sh -n test -e kyverno -s ./example-settings.yaml
 Starting cluster security check
 -------------------------------
 Creating namespace test
-Installing Kyverno 1.7 in Standalone mode
+Installing Kyverno release-1.7 in Standalone mode
 For production installation, use 'helm' package manager for Kubernetes, specify exact version, and set at least 3 replicas.
-Installing Kyverno...
+Installing Kyverno release-1.7 ...
 Waiting for policies to be ready
 
 Applying vulnerable pods...
@@ -184,7 +184,7 @@ resource Pod/test/cpu-requests-are-not-set was blocked due to the following poli
 limits-and-requests-are-required:
   limits-and-requests-are-required-rule: 'validation error: CPU and memory resource
     requests and limits are required. Rule limits-and-requests-are-required-rule failed
-    at path /spec/containers/0/resources/limits/cpu/'
+    at path /spec/containers/0/resources/requests/cpu/'
 Error from server: error when creating "empty-tag.yml": admission webhook "validate.kyverno.svc-fail" denied the request: 
 
 resource Pod/test/empty-tag was blocked due to the following policies
@@ -294,7 +294,7 @@ image-can-be-referenced-only-with-image-digest:
 limits-and-requests-are-required:
   limits-and-requests-are-required-rule: 'validation error: CPU and memory resource
     requests and limits are required. Rule limits-and-requests-are-required-rule failed
-    at path /spec/containers/0/resources/requests/'
+    at path /spec/containers/0/resources/limits/'
 root-filesystem-is-readonly:
   root-filesystem-is-readonly-rule: 'validation error: Root filesystem must be read-only.
     Rule root-filesystem-is-readonly-rule failed at path /spec/containers/0/securityContext/'
@@ -378,13 +378,13 @@ controlplane $ bash apply.sh -n test -e gatekeeper -s ./example-settings.yaml
 Starting cluster security check
 -------------------------------
 Creating namespace test
-Installing gatekeeper...
+Installing OPA Gatekeeper - release-3.11 ...
 Waiting for policies to be ready
 Applying non parametric constraints
 Non parametric constraints applied
 Applying parametric constraints
 NAME: images-can-be-referenced-only-from-allowed-registries
-LAST DEPLOYED: Sat Apr 22 11:03:09 2023
+LAST DEPLOYED: Sun Apr 30 08:51:08 2023
 NAMESPACE: test
 STATUS: deployed
 REVISION: 1
@@ -486,7 +486,7 @@ controlplane $ bash apply.sh -n test -e kubewarden -s ./example-settings.yaml
 Starting cluster security check
 -------------------------------
 Creating namespace test
-Installing kubewarden (crds - 1.3.0, controller 1.5.0, defaults 1.6.0)...
+Installing kubewarden (cert-manager - v1.11.1, crds - 1.3.0, controller - 1.5.0, defaults - 1.6.0)...
 Waiting for cert manager...
 Waiting for crds...
 Waiting for controller...
@@ -581,7 +581,7 @@ controlplane $ bash apply.sh -n test -p privileged -s ./example-settings.yaml
 Starting cluster security check
 -------------------------------
 Creating namespace test
-Applying security profile - 'privileged' to namespace
+Applying security profile - 'privileged' to namespace with enforce-version v1.26
 
 Applying vulnerable pods...
 
@@ -671,7 +671,7 @@ controlplane $ bash apply.sh -n test -p baseline -s ./example-settings.yaml
 Starting cluster security check
 -------------------------------
 Creating namespace test
-Applying security profile - 'baseline' to namespace
+Applying security profile - 'baseline' to namespace with enforce-version v1.26
 
 Applying vulnerable pods...
 Error from server (Forbidden): error when creating "ipc-namespace-sharing.yml": pods "ipc-namespace-sharing" is forbidden: violates PodSecurity "baseline:v1.26": host namespaces (hostIPC=true)
@@ -761,7 +761,7 @@ controlplane $ bash apply.sh -n test -p restricted -s ./example-settings.yaml
 Starting cluster security check
 -------------------------------
 Creating namespace test
-Applying security profile - 'restricted' to namespace
+Applying security profile - 'restricted' to namespace with enforce-version v1.26
 
 Applying vulnerable pods...
 Error from server (Forbidden): error when creating "add-kill-capability.yml": pods "add-kill-capability" is forbidden: violates PodSecurity "restricted:v1.26": unrestricted capabilities (container "add-kill-capability-container" must not include "KILL" in securityContext.capabilities.add)
