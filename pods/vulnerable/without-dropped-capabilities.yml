@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: drop-capabilities
+  name: without-dropped-capabilities
   annotations:
     readableName: Pod without dropped capabilities
     vulnerabilityReason: Compromised container process will have default parts of root permissions (capabilities)

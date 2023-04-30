@@ -384,7 +384,7 @@ Applying non parametric constraints
 Non parametric constraints applied
 Applying parametric constraints
 NAME: images-can-be-referenced-only-from-allowed-registries
-LAST DEPLOYED: Sun Apr 30 08:51:08 2023
+LAST DEPLOYED: Sun Apr 30 09:30:49 2023
 NAMESPACE: test
 STATUS: deployed
 REVISION: 1
@@ -415,14 +415,16 @@ Error from server (Forbidden): error when creating "without-security-context.yml
 [limitsandrequestsarerequired] container <without-security-context-container> has not specified cpu requests
 [limitsandrequestsarerequired] container <without-security-context-container> has not specified memory limits
 [limitsandrequestsarerequired] container <without-security-context-container> has not specified memory requests
+[rootfilesystemisreadonly] only read-only root filesystem container is allowed: without-security-context-container
 [uidunder10000isforbidden] uuid must be under 10000 in container <without-security-context-container>
+Error from server (Forbidden): error when creating "writable-root-filesystem.yml": admission webhook "validation.gatekeeper.sh" denied the request: [rootfilesystemisreadonly] only read-only root filesystem container is allowed: writable-root-filesystem-container
 
 Applying secure pods...
 -------------------------------
 Results
 -------------------------------
-Successfull: 18/30
-Unsuccessfull: 12/30
+Successfull: 19/30
+Unsuccessfull: 11/30
 Safe pods accepted:
 secure-pod
 
@@ -444,31 +446,30 @@ readiness-probe-is-not-set
 run-as-user-1000
 run-as-user-zero
 without-security-context
+writable-root-filesystem
 
 Risky pods accepted:
 0. Description: Pod without dropped capabilities, but added kill capability ||| Risk Reason: Container process can kill other processes. If KILL capability can be added, there is a risk that other capabilities can be added too. 
 
-1. Description: Pod without dropped capabilities ||| Risk Reason: Compromised container process will have default parts of root permissions (capabilities) 
+1. Description: Pod with shared IPC namespace ||| Risk Reason: Container process has access to host interprocess comunication resources and can potentially manipulate with them - eg. communicate with host using shared memory 
 
-2. Description: Pod with shared IPC namespace ||| Risk Reason: Container process has access to host interprocess comunication resources and can potentially manipulate with them - eg. communicate with host using shared memory 
+2. Description: Pod with mounted docker socket ||| Risk Reason: Attacker can manipulate with Docker on host from container via socket. Attacket can manipulate with images on host, eg. stop them and cause DoS, or break from container via creation of privileged container. 
 
-3. Description: Pod with mounted docker socket ||| Risk Reason: Attacker can manipulate with Docker on host from container via socket. Attacket can manipulate with images on host, eg. stop them and cause DoS, or break from container via creation of privileged container. 
+3. Description: Pod with host mount ||| Risk Reason: Host mount exposes files or directories from host filesystem. Attacker can read, modify or delete this information from container (only read if readOnly). Violates all three attributes of CIA triad (only confidentiality if readOnly). 
 
-4. Description: Pod with host mount ||| Risk Reason: Host mount exposes files or directories from host filesystem. Attacker can read, modify or delete this information from container (only read if readOnly). Violates all three attributes of CIA triad (only confidentiality if readOnly). 
+4. Description: Pod with shared network namespace ||| Risk Reason: Container process has access to network namespace of host, which can be abused eg. for network traffic snooping 
 
-5. Description: Pod with shared network namespace ||| Risk Reason: Container process has access to network namespace of host, which can be abused eg. for network traffic snooping 
+5. Description: Pod with shared PID namespace ||| Risk Reason: Container process has access to host processes and can potentially manipulate with them. 
 
-6. Description: Pod with shared PID namespace ||| Risk Reason: Container process has access to host processes and can potentially manipulate with them. 
+6. Description: Pod with allowPrivilegeEscalation field set to true. ||| Risk Reason: Process can obtain higher privileges than parent process 
 
-7. Description: Pod with allowPrivilegeEscalation field set to true. ||| Risk Reason: Process can obtain higher privileges than parent process 
+7. Description: Pod with runAsNonRoot field set to false. ||| Risk Reason: Processes will be run under root user 
 
-8. Description: Pod with runAsNonRoot field set to false. ||| Risk Reason: Processes will be run under root user 
+8. Description: Pod without runAsNonRoot field. ||| Risk Reason: Processes will be run under root user 
 
-9. Description: Pod without runAsNonRoot field. ||| Risk Reason: Processes will be run under root user 
+9. Description: Pod without disabled seccomp via Unconfined seccomp type ||| Risk Reason: Seccomp filters configured system calls. Disabling seccomp allows unrestricted access to system calls for container processes. 
 
-10. Description: Pod without disabled seccomp via Unconfined seccomp type ||| Risk Reason: Seccomp filters configured system calls. Disabling seccomp allows unrestricted access to system calls for container processes. 
-
-11. Description: Pod with readOnlyRootFilesystem set to false ||| Risk Reason: Container process can manipulate with filesystem, modify and delete important files, eg. configuration 
+10. Description: Pod without dropped capabilities ||| Risk Reason: Compromised container process will have default parts of root permissions (capabilities) 
 
 
 Safe pods rejected:
