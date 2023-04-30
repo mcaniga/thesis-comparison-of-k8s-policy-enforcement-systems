@@ -486,7 +486,7 @@ controlplane $ bash apply.sh -n test -e kubewarden -s ./example-settings.yaml
 Starting cluster security check
 -------------------------------
 Creating namespace test
-Installing kubewarden (crds - 1.2.3, controller 1.4.0, defaults 1.5.1)...
+Installing kubewarden (crds - 1.3.0, controller 1.5.0, defaults 1.6.0)...
 Waiting for cert manager...
 Waiting for crds...
 Waiting for controller...
@@ -494,76 +494,76 @@ Waiting for defaults...
 Waiting for policies to be ready
 
 Applying vulnerable pods...
-Error from server: error when creating "without-security-context.yml": admission webhook "clusterwide-read-only-filesystem-policy.kubewarden.admission" denied the request: One of the containers does not have readOnlyRootFilesystem enabled
+Error from server: error when creating "cpu-limits-are-not-set.yml": admission webhook "clusterwide-limits-and-requests-are-required.kubewarden.admission" denied the request: container has not specified cpu limits
+Error from server: error when creating "cpu-requests-are-not-set.yml": admission webhook "clusterwide-limits-and-requests-are-required.kubewarden.admission" denied the request: container has not specified cpu requests, container has not specified cpu limits
+Error from server: error when creating "dummy-image-registry.yml": admission webhook "clusterwide-images-can-be-referenced-only-from-allowed-registries.kubewarden.admission" denied the request: container has an invalid image repo
+Error from server: error when creating "empty-tag.yml": admission webhook "clusterwide-image-can-be-referenced-only-with-image-digest.kubewarden.admission" denied the request: container must reference image by digest
+Error from server: error when creating "image-pull-policy-if-not-present.yml": admission webhook "clusterwide-always-pull-image-from-remote-registry.kubewarden.admission" denied the request: imagePullPolicy should be always
+Error from server: error when creating "image-pull-policy-never.yml": admission webhook "clusterwide-always-pull-image-from-remote-registry.kubewarden.admission" denied the request: imagePullPolicy should be always
+Error from server: error when creating "image-tag.yml": admission webhook "clusterwide-image-can-be-referenced-only-with-image-digest.kubewarden.admission" denied the request: container must reference image by digest
+Error from server: error when creating "latest-tag.yml": admission webhook "clusterwide-image-can-be-referenced-only-with-image-digest.kubewarden.admission" denied the request: container must reference image by digest
+Error from server: error when creating "liveness-probe-is-not-set.yml": admission webhook "clusterwide-liveness-probes-are-required.kubewarden.admission" denied the request: liveness probes are not configured in container
+Error from server: error when creating "memory-limits-are-not-set.yml": admission webhook "clusterwide-limits-and-requests-are-required.kubewarden.admission" denied the request: container has not specified memory limits
+Error from server: error when creating "memory-requests-are-not-set.yml": admission webhook "clusterwide-limits-and-requests-are-required.kubewarden.admission" denied the request: container has not specified memory limits, container has not specified memory requests
+Error from server: error when creating "priviledge-escalation-missing.yml": admission webhook "clusterwide-uid-under-10000-is-forbidden.kubewarden.admission" denied the request: uuid must be under 10000 in container
+Error from server: error when creating "privileged-containers.yml": admission webhook "clusterwide-uid-under-10000-is-forbidden.kubewarden.admission" denied the request: uuid must be under 10000 in container
+Error from server: error when creating "readiness-probe-is-not-set.yml": admission webhook "clusterwide-readiness-probes-are-required.kubewarden.admission" denied the request: readiness probes are not configured in container
+Error from server: error when creating "run-as-user-1000.yml": admission webhook "clusterwide-uid-under-10000-is-forbidden.kubewarden.admission" denied the request: uuid must be under 10000 in container
+Error from server: error when creating "run-as-user-zero.yml": admission webhook "clusterwide-uid-under-10000-is-forbidden.kubewarden.admission" denied the request: uuid must be under 10000 in container
+Error from server: error when creating "without-security-context.yml": admission webhook "clusterwide-uid-under-10000-is-forbidden.kubewarden.admission" denied the request: uuid must be under 10000 in container
 Error from server: error when creating "writable-root-filesystem.yml": admission webhook "clusterwide-read-only-filesystem-policy.kubewarden.admission" denied the request: One of the containers does not have readOnlyRootFilesystem enabled
 
 Applying secure pods...
 -------------------------------
 Results
 -------------------------------
-Successfull: 3/30
-Unsuccessfull: 27/30
+Successfull: 19/30
+Unsuccessfull: 11/30
 Safe pods accepted:
 secure-pod
 
 Risky pods rejected:
+cpu-limits-are-not-set
+cpu-requests-are-not-set
+dummy-image-registry
+empty-tag
+image-pull-policy-if-not-present
+image-pull-policy-never
+image-tag
+latest-tag
+liveness-probe-is-not-set
+memory-limits-are-not-set
+memory-requests-are-not-set
+priviledge-escalation-missing
+privileged-containers
+readiness-probe-is-not-set
+run-as-user-1000
+run-as-user-zero
 without-security-context
 writable-root-filesystem
 
 Risky pods accepted:
 0. Description: Pod without dropped capabilities, but added kill capability ||| Risk Reason: Container process can kill other processes. If KILL capability can be added, there is a risk that other capabilities can be added too. 
 
-1. Description: Container without set CPU limits ||| Risk Reason: Container can consume all of host CPU cores, and cause resource starvation for other pods. 
+1. Description: Pod without dropped capabilities ||| Risk Reason: Compromised container process will have default parts of root permissions (capabilities) 
 
-2. Description: Container without set CPU requests ||| Risk Reason: If CPU requests are not set, other misbehaving pod can cause resource starvation for this pod. 
+2. Description: Pod with shared IPC namespace ||| Risk Reason: Container process has access to host interprocess comunication resources and can potentially manipulate with them - eg. communicate with host using shared memory 
 
-3. Description: Pod without dropped capabilities ||| Risk Reason: Compromised container process will have default parts of root permissions (capabilities) 
+3. Description: Pod with mounted docker socket ||| Risk Reason: Attacker can manipulate with Docker on host from container via socket. Attacket can manipulate with images on host, eg. stop them and cause DoS, or break from container via creation of privileged container. 
 
-4. Description: Container with dummy image registry ||| Risk Reason: Image registry is unrestricted, higher risk of malicious images. Pull images only from registries you can trust. 
+4. Description: Pod with host mount ||| Risk Reason: Host mount exposes files or directories from host filesystem. Attacker can read, modify or delete this information from container (only read if readOnly). Violates all three attributes of CIA triad (only confidentiality if readOnly). 
 
-5. Description: Container with empty tag ||| Risk Reason: Pod can run new version of image on restarts. The version can be malicious or with breaking changes. Same as usage of latest tag. 
+5. Description: Pod with shared network namespace ||| Risk Reason: Container process has access to network namespace of host, which can be abused eg. for network traffic snooping 
 
-6. Description: Container has imagePullPolicy set to IfNotPresent ||| Risk Reason: Attacker can poison local registry, thus malicious image will be loaded. 
+6. Description: Pod with shared PID namespace ||| Risk Reason: Container process has access to host processes and can potentially manipulate with them. 
 
-7. Description: Container has imagePullPolicy set to Never ||| Risk Reason: Attacker can poison local registry, thus malicious image will be loaded. 
+7. Description: Pod with allowPrivilegeEscalation field set to true. ||| Risk Reason: Process can obtain higher privileges than parent process 
 
-8. Description: Container with image referenced by tag ||| Risk Reason: Attacker can poison local registry, thus malicious image will be loaded. Instead, reference image by digest. 
+8. Description: Pod with runAsNonRoot field set to false. ||| Risk Reason: Processes will be run under root user 
 
-9. Description: Pod with shared IPC namespace ||| Risk Reason: Container process has access to host interprocess comunication resources and can potentially manipulate with them - eg. communicate with host using shared memory 
+9. Description: Pod without runAsNonRoot field. ||| Risk Reason: Processes will be run under root user 
 
-10. Description: Container with latest tag ||| Risk Reason: Pod can run new version of image on restarts. The version can be malicious or with breaking changes. 
-
-11. Description: Container has not set liveness probe ||| Risk Reason: Without correct liveness probe, container can be in ill-state and not be restarted. 
-
-12. Description: Container without set memory limits ||| Risk Reason: Container can consume all of host memory, and cause resource starvation for other pods. 
-
-13. Description: Container without set memory requests ||| Risk Reason: If memory requests are not set, other misbehaving container can cause resource starvation for this pod. 
-
-14. Description: Pod with mounted docker socket ||| Risk Reason: Attacker can manipulate with Docker on host from container via socket. Attacket can manipulate with images on host, eg. stop them and cause DoS, or break from container via creation of privileged container. 
-
-15. Description: Pod with host mount ||| Risk Reason: Host mount exposes files or directories from host filesystem. Attacker can read, modify or delete this information from container (only read if readOnly). Violates all three attributes of CIA triad (only confidentiality if readOnly). 
-
-16. Description: Pod with shared network namespace ||| Risk Reason: Container process has access to network namespace of host, which can be abused eg. for network traffic snooping 
-
-17. Description: Pod with shared PID namespace ||| Risk Reason: Container process has access to host processes and can potentially manipulate with them. 
-
-18. Description: Pod without allowPrivilegeEscalation field. ||| Risk Reason: Process can obtain higher privileges than parent process 
-
-19. Description: Pod with allowPrivilegeEscalation field set to true. ||| Risk Reason: Process can obtain higher privileges than parent process 
-
-20. Description: Pod with privileged field set to true. ||| Risk Reason: Containers run without any isolation from host. 
-
-21. Description: Container has not set readiness probe ||| Risk Reason: Without readiness probe, traffic will be sent to pod that is just inicializing, causing undesirable behaviour. 
-
-22. Description: Pod with runAsNonRoot field set to false. ||| Risk Reason: Processes will be run under root user 
-
-23. Description: Pod without runAsNonRoot field. ||| Risk Reason: Processes will be run under root user 
-
-24. Description: Pod with runAsUser field set to 1000. ||| Risk Reason: UID of container user can clash with user on host machine, and reference priviledged user. 
-
-25. Description: Pod with runAsUser field set to zero. ||| Risk Reason: Processes will be run under root user 
-
-26. Description: Pod without disabled seccomp via Unconfined seccomp type ||| Risk Reason: Seccomp filters configured system calls. Disabling seccomp allows unrestricted access to system calls for container processes. 
+10. Description: Pod without disabled seccomp via Unconfined seccomp type ||| Risk Reason: Seccomp filters configured system calls. Disabling seccomp allows unrestricted access to system calls for container processes. 
 
 
 Safe pods rejected:
