@@ -21,6 +21,7 @@ function apply_non_parametric_constraints {
 #   $NAMESPACE - namespace
 #   $SETTINGS_PATH - path from project root to parameters yaml
 function apply_parametric_constraints {
+    sleep 15
     echo "Applying parametric constraints"
     for constraint_path in "$SC_PROJECT_ROOT"/gatekeeper/constraints-charts/*; do
       constraint_name=$(basename $constraint_path)
@@ -31,7 +32,7 @@ function apply_parametric_constraints {
       helm install $constraint_name $constraint_path -f $policy_settings -n $NAMESPACE
     done
     # Wait for constraints to be applied
-    sleep 5
+    sleep 10
     echo "Parametric constraints applied"
 }
 
