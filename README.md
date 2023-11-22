@@ -34,15 +34,15 @@ In addition when using additional ability to install enforcement libraries (`-e`
 ## Usage
 - execute security test
 ```
-bash apply.sh -n test
+bash apply.sh -n test -s ./example-settings.yaml
 ```
 - enforce Pod Security Standards
 ```
-bash apply.sh -n test -p restricted
+bash apply.sh -n test -p restricted -s ./example-settings.yaml
 ```
 - install policies with specified enforcement library
 ```
-bash apply.sh -n test -e kyverno
+bash apply.sh -n test -e kyverno -s ./example-settings.yaml
 ```
 - documentation regarding parameters can be found in `docs/parameters.md`
 
