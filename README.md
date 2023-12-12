@@ -4,7 +4,7 @@
 - tool for checking of cluster security through deployment of vulnerable pods
 - tool also provides additional ability to install Kyverno, OPA Gatekeeper and Kubewarden policies and apply Pod Security Profiles, to fix the security problems and enforce relevant security settings - list of relevant security settings is in `docs/policies.md`
 
-- for detailed documentation, see `docs/` folder
+- **for detailed documentation, see `docs/` folder**
 
 ## Supported Kubernetes versions
 - 1.26. 1.27, 1.28
