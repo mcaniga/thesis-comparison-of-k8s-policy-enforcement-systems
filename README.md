@@ -29,7 +29,7 @@ In addition when using additional ability to install enforcement libraries (`-e`
 1. Clone repository
   - `git clone https://github.com/mcaniga/thesis-comparison-of-k8s-policy-enforcement-systems.git`
 2. Execute security check
-  - `bash apply.sh -n cluster-security-check`
+  - `bash apply.sh -n test -s ./example-settings.yaml`
 
 ## Usage
 - execute security test
