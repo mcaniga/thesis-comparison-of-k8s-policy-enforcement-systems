@@ -7,7 +7,7 @@
 - for detailed documentation, see `docs/` folder
 
 ## Supported Kubernetes versions
-- 1.26
+- 1.26. 1.27, 1.28
 
 ## Prerequisites
 - access to Kubernetes cluster and kubectl
