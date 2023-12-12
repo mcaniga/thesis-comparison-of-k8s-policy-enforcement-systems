@@ -20,7 +20,7 @@ Leave -p parameter untouched.
     - use community PSS package for Kyverno, OPA Gatekeeper and Kubewarden with omitting functionality
 
 ## Support multiple Kubernetes versions
-Now only Kubernetes 1.26 is supported.  
+Now only Kubernetes 1.26, 1.27, 1.28 is supported.  
 Test and document support for other versions.
 **Possible solution**
 - try all features with different Kubernetes versions, eg. 1.25
