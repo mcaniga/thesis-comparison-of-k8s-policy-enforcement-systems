@@ -14,6 +14,3 @@
 
 `resposnes.md`
 - specification of known and tested responses
-
-`vulnerable-pods.md`
-- list of vulnerable pods with additional fields
