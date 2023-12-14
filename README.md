@@ -21,7 +21,7 @@ In addition when using additional ability to install enforcement libraries (`-e`
 
 ## Recomended testing environment
 - script can be used in existing cluster
-- for testing, run script in  **free KillerCoda Kubernetes 1.26** environment 
+- for testing, run script in  **free KillerCoda Kubernetes** environment 
   - https://killercoda.com/playgrounds/scenario/kubernetes
   - all prerequsites are already installed
 
